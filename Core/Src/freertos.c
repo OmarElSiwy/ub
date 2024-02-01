@@ -19,9 +19,16 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "FreeRTOS.h"
+#include "CommunicationProtocol/gpio.h"
+#include "CommunicationProtocol/i2c.h"
+#include "CommunicationProtocol/tim.h"
+#include "Components/MPU6050.h"
+#include "Components/Motor.h"
+#include "stm32f4xx_hal_tim.h"
 #include "task.h"
 #include "main.h"
 #include "cmsis_os.h"
+#include "CommunicationProtocol/usart.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -47,7 +54,7 @@
 /* USER CODE BEGIN Variables */
 
 /* USER CODE END Variables */
-osThreadId defaultTaskHandle;
+TaskHandle_t defaultTaskHandle = NULL;
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -92,7 +99,7 @@ void MX_FREERTOS_Init(void) {
   /* add semaphores, ... */
   /* USER CODE END RTOS_SEMAPHORES */
 
-  /* USER CODE BEGIN RTOS_TIMERS */temp
+  /* USER CODE BEGIN RTOS_TIMERS */
   /* start timers, add new ones, ... */
   /* USER CODE END RTOS_TIMERS */
 
@@ -102,8 +109,14 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the thread(s) */
   /* definition and creation of defaultTask */
-  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);
-  defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
+  xTaskCreate(
+    StartDefaultTask,          // Task function
+    "DefaultTask",             // Name of the task (for debugging purposes)
+    128,                       // Stack size (in words, not bytes!)
+    NULL,                      // Task input parameter
+    tskIDLE_PRIORITY + 1,      // Priority of the task
+    &defaultTaskHandle         // Task handle
+  );
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -118,9 +131,44 @@ void MX_FREERTOS_Init(void) {
   * @retval None
   */
 /* USER CODE END Header_StartDefaultTask */
-void StartDefaultTask(void const * argument) {
+void StartDefaultTask(const void* argument) {
+  MX_USART2_UART_Init();
+  MX_I2C1_Init();
+
+  MX_GPIO_Init();
+  while (true)
+    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_SET);
+    
+  MX_TIM3_Init();
+  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
+
+  MX_TIM2_Init();
+  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
+
+  MX_TIM4_Init();
+  HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_1);
+
+  MX_TIM5_Init();
+  HAL_TIM_PWM_Start(&htim5, TIM_CHANNEL_1);
+
   for(;;)
   {
+    tuple thermo = ReadAccel();
+    char buffer[32]; // Adjust the size as needed
+
+    // Convert thermo.x to string and send
+    snprintf(buffer, sizeof(buffer), "%d\r\n", thermo.x);
+    HAL_UART_Transmit(&huart2, (uint8_t*)buffer, strlen(buffer), 100);
+
+    // Convert thermo.y to string and send
+    snprintf(buffer, sizeof(buffer), "%d\r\n", thermo.y);
+    HAL_UART_Transmit(&huart2, (uint8_t*)buffer, strlen(buffer), 100);
+
+    // Convert thermo.z to string and send
+    snprintf(buffer, sizeof(buffer), "%d\r\n\n", thermo.z);
+    HAL_UART_Transmit(&huart2, (uint8_t*)buffer, strlen(buffer), 100);
+
     osDelay(1);
+    HAL_Delay(1000);
   }
 }

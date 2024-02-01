@@ -19,11 +19,11 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "cmsis_os.h"
-#include "i2c.h"
-#include "spi.h"
-#include "tim.h"
-#include "usart.h"
-#include "gpio.h"
+#include "CommunicationProtocol/i2c.h"
+#include "CommunicationProtocol/gpio.h"
+#include "CommunicationProtocol/spi.h"
+#include "CommunicationProtocol/tim.h"
+#include "CommunicationProtocol/usart.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -90,18 +90,9 @@ int main(void)
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
-  MX_GPIO_Init();
-  MX_I2C1_Init();
-  MX_SPI1_Init();
-  MX_TIM2_Init();
-  MX_TIM3_Init();
-  MX_TIM4_Init();
-  MX_TIM5_Init();
-  MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
-
   /* Call init function for freertos objects (in freertos.c) */
   MX_FREERTOS_Init();
 

@@ -1,0 +1,2000 @@
+ARM GAS  /var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 1
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"tim.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.HAL_TIM_Base_MspInit,"ax",%progbits
+  20              		.align	1
+  21              		.global	HAL_TIM_Base_MspInit
+  22              		.syntax unified
+  23              		.thumb
+  24              		.thumb_func
+  26              	HAL_TIM_Base_MspInit:
+  27              	.LVL0:
+  28              	.LFB138:
+  29              		.file 1 "Core/Src/CommunicationProtocol/tim.c"
+   1:Core/Src/CommunicationProtocol/tim.c **** /* USER CODE BEGIN Header */
+   2:Core/Src/CommunicationProtocol/tim.c **** /**
+   3:Core/Src/CommunicationProtocol/tim.c ****   ******************************************************************************
+   4:Core/Src/CommunicationProtocol/tim.c ****   * @file    tim.c
+   5:Core/Src/CommunicationProtocol/tim.c ****   * @brief   This file provides code for the configuration
+   6:Core/Src/CommunicationProtocol/tim.c ****   *          of the TIM instances.
+   7:Core/Src/CommunicationProtocol/tim.c ****   ******************************************************************************
+   8:Core/Src/CommunicationProtocol/tim.c ****   * @attention
+   9:Core/Src/CommunicationProtocol/tim.c ****   *
+  10:Core/Src/CommunicationProtocol/tim.c ****   * Copyright (c) 2024 STMicroelectronics.
+  11:Core/Src/CommunicationProtocol/tim.c ****   * All rights reserved.
+  12:Core/Src/CommunicationProtocol/tim.c ****   *
+  13:Core/Src/CommunicationProtocol/tim.c ****   * This software is licensed under terms that can be found in the LICENSE file
+  14:Core/Src/CommunicationProtocol/tim.c ****   * in the root directory of this software component.
+  15:Core/Src/CommunicationProtocol/tim.c ****   * If no LICENSE file comes with this software, it is provided AS-IS.
+  16:Core/Src/CommunicationProtocol/tim.c ****   *
+  17:Core/Src/CommunicationProtocol/tim.c ****   ******************************************************************************
+  18:Core/Src/CommunicationProtocol/tim.c ****   */
+  19:Core/Src/CommunicationProtocol/tim.c **** /* USER CODE END Header */
+  20:Core/Src/CommunicationProtocol/tim.c **** /* Includes ------------------------------------------------------------------*/
+  21:Core/Src/CommunicationProtocol/tim.c **** #include "CommunicationProtocol/tim.h"
+  22:Core/Src/CommunicationProtocol/tim.c **** 
+  23:Core/Src/CommunicationProtocol/tim.c **** TIM_HandleTypeDef htim2;
+  24:Core/Src/CommunicationProtocol/tim.c **** TIM_HandleTypeDef htim3;
+  25:Core/Src/CommunicationProtocol/tim.c **** TIM_HandleTypeDef htim4;
+  26:Core/Src/CommunicationProtocol/tim.c **** TIM_HandleTypeDef htim5;
+  27:Core/Src/CommunicationProtocol/tim.c **** 
+  28:Core/Src/CommunicationProtocol/tim.c **** /* TIM2 init function */
+  29:Core/Src/CommunicationProtocol/tim.c **** void MX_TIM2_Init(void)
+ARM GAS  /var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s 			page 2
+
+
+  30:Core/Src/CommunicationProtocol/tim.c **** {
+  31:Core/Src/CommunicationProtocol/tim.c ****   TIM_ClockConfigTypeDef sClockSourceConfig = {0};
+  32:Core/Src/CommunicationProtocol/tim.c ****   TIM_MasterConfigTypeDef sMasterConfig = {0};
+  33:Core/Src/CommunicationProtocol/tim.c ****   TIM_OC_InitTypeDef sConfigOC = {0};
+  34:Core/Src/CommunicationProtocol/tim.c **** 
+  35:Core/Src/CommunicationProtocol/tim.c ****   htim2.Instance = TIM2;
+  36:Core/Src/CommunicationProtocol/tim.c ****   htim2.Init.Prescaler = 0;
+  37:Core/Src/CommunicationProtocol/tim.c ****   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
+  38:Core/Src/CommunicationProtocol/tim.c ****   htim2.Init.Period = 4294967295;
+  39:Core/Src/CommunicationProtocol/tim.c ****   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  40:Core/Src/CommunicationProtocol/tim.c ****   htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  41:Core/Src/CommunicationProtocol/tim.c ****   if (HAL_TIM_Base_Init(&htim2) != HAL_OK)
+  42:Core/Src/CommunicationProtocol/tim.c ****   {
+  43:Core/Src/CommunicationProtocol/tim.c ****     Error_Handler();
+  44:Core/Src/CommunicationProtocol/tim.c ****   }
+  45:Core/Src/CommunicationProtocol/tim.c ****   sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+  46:Core/Src/CommunicationProtocol/tim.c ****   if (HAL_TIM_ConfigClockSource(&htim2, &sClockSourceConfig) != HAL_OK)
+  47:Core/Src/CommunicationProtocol/tim.c ****   {
+  48:Core/Src/CommunicationProtocol/tim.c ****     Error_Handler();
+  49:Core/Src/CommunicationProtocol/tim.c ****   }
+  50:Core/Src/CommunicationProtocol/tim.c ****   if (HAL_TIM_PWM_Init(&htim2) != HAL_OK)
+  51:Core/Src/CommunicationProtocol/tim.c ****   {
+  52:Core/Src/CommunicationProtocol/tim.c ****     Error_Handler();
+  53:Core/Src/CommunicationProtocol/tim.c ****   }
+  54:Core/Src/CommunicationProtocol/tim.c ****   sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  55:Core/Src/CommunicationProtocol/tim.c ****   sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  56:Core/Src/CommunicationProtocol/tim.c ****   if (HAL_TIMEx_MasterConfigSynchronization(&htim2, &sMasterConfig) != HAL_OK)
+  57:Core/Src/CommunicationProtocol/tim.c ****   {
+  58:Core/Src/CommunicationProtocol/tim.c ****     Error_Handler();
+  59:Core/Src/CommunicationProtocol/tim.c ****   }
+  60:Core/Src/CommunicationProtocol/tim.c ****   sConfigOC.OCMode = TIM_OCMODE_PWM1;
+  61:Core/Src/CommunicationProtocol/tim.c ****   sConfigOC.Pulse = 30000000;
+  62:Core/Src/CommunicationProtocol/tim.c ****   sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
+  63:Core/Src/CommunicationProtocol/tim.c ****   sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
+  64:Core/Src/CommunicationProtocol/tim.c ****   if (HAL_TIM_PWM_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
+  65:Core/Src/CommunicationProtocol/tim.c ****   {
+  66:Core/Src/CommunicationProtocol/tim.c ****     Error_Handler();
+  67:Core/Src/CommunicationProtocol/tim.c ****   }
+  68:Core/Src/CommunicationProtocol/tim.c ****   HAL_TIM_Base_MspInit(&htim2);
+  69:Core/Src/CommunicationProtocol/tim.c ****   HAL_TIM_MspPostInit(&htim2);
+  70:Core/Src/CommunicationProtocol/tim.c **** }
+  71:Core/Src/CommunicationProtocol/tim.c **** 
+  72:Core/Src/CommunicationProtocol/tim.c **** /* TIM3 init function */
+  73:Core/Src/CommunicationProtocol/tim.c **** void MX_TIM3_Init(void)
+  74:Core/Src/CommunicationProtocol/tim.c **** {
+  75:Core/Src/CommunicationProtocol/tim.c ****   TIM_ClockConfigTypeDef sClockSourceConfig = {0};
+  76:Core/Src/CommunicationProtocol/tim.c ****   TIM_MasterConfigTypeDef sMasterConfig = {0};
+  77:Core/Src/CommunicationProtocol/tim.c ****   TIM_OC_InitTypeDef sConfigOC = {0};
+  78:Core/Src/CommunicationProtocol/tim.c **** 
+  79:Core/Src/CommunicationProtocol/tim.c ****   htim3.Instance = TIM3;
+  80:Core/Src/CommunicationProtocol/tim.c ****   htim3.Init.Prescaler = 0;
+  81:Core/Src/CommunicationProtocol/tim.c ****   htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
+  82:Core/Src/CommunicationProtocol/tim.c ****   htim3.Init.Period = 65535;
+  83:Core/Src/CommunicationProtocol/tim.c ****   htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  84:Core/Src/CommunicationProtocol/tim.c ****   htim3.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  85:Core/Src/CommunicationProtocol/tim.c ****   if (HAL_TIM_Base_Init(&htim3) != HAL_OK)
+  86:Core/Src/CommunicationProtocol/tim.c ****   {
+ARM GAS  /var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s 			page 3
+
+
+  87:Core/Src/CommunicationProtocol/tim.c ****     Error_Handler();
+  88:Core/Src/CommunicationProtocol/tim.c ****   }
+  89:Core/Src/CommunicationProtocol/tim.c ****   sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+  90:Core/Src/CommunicationProtocol/tim.c ****   if (HAL_TIM_ConfigClockSource(&htim3, &sClockSourceConfig) != HAL_OK)
+  91:Core/Src/CommunicationProtocol/tim.c ****   {
+  92:Core/Src/CommunicationProtocol/tim.c ****     Error_Handler();
+  93:Core/Src/CommunicationProtocol/tim.c ****   }
+  94:Core/Src/CommunicationProtocol/tim.c ****   if (HAL_TIM_PWM_Init(&htim3) != HAL_OK)
+  95:Core/Src/CommunicationProtocol/tim.c ****   {
+  96:Core/Src/CommunicationProtocol/tim.c ****     Error_Handler();
+  97:Core/Src/CommunicationProtocol/tim.c ****   }
+  98:Core/Src/CommunicationProtocol/tim.c ****   sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  99:Core/Src/CommunicationProtocol/tim.c ****   sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+ 100:Core/Src/CommunicationProtocol/tim.c ****   if (HAL_TIMEx_MasterConfigSynchronization(&htim3, &sMasterConfig) != HAL_OK)
+ 101:Core/Src/CommunicationProtocol/tim.c ****   {
+ 102:Core/Src/CommunicationProtocol/tim.c ****     Error_Handler();
+ 103:Core/Src/CommunicationProtocol/tim.c ****   }
+ 104:Core/Src/CommunicationProtocol/tim.c ****   sConfigOC.OCMode = TIM_OCMODE_PWM1;
+ 105:Core/Src/CommunicationProtocol/tim.c ****   sConfigOC.Pulse = 0;
+ 106:Core/Src/CommunicationProtocol/tim.c ****   sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
+ 107:Core/Src/CommunicationProtocol/tim.c ****   sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
+ 108:Core/Src/CommunicationProtocol/tim.c ****   if (HAL_TIM_PWM_ConfigChannel(&htim3, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
+ 109:Core/Src/CommunicationProtocol/tim.c ****   {
+ 110:Core/Src/CommunicationProtocol/tim.c ****     Error_Handler();
+ 111:Core/Src/CommunicationProtocol/tim.c ****   }
+ 112:Core/Src/CommunicationProtocol/tim.c **** 
+ 113:Core/Src/CommunicationProtocol/tim.c ****   HAL_TIM_Base_MspInit(&htim3);
+ 114:Core/Src/CommunicationProtocol/tim.c ****   HAL_TIM_MspPostInit(&htim3);
+ 115:Core/Src/CommunicationProtocol/tim.c **** }
+ 116:Core/Src/CommunicationProtocol/tim.c **** 
+ 117:Core/Src/CommunicationProtocol/tim.c **** /* TIM4 init function */
+ 118:Core/Src/CommunicationProtocol/tim.c **** void MX_TIM4_Init(void)
+ 119:Core/Src/CommunicationProtocol/tim.c **** {
+ 120:Core/Src/CommunicationProtocol/tim.c ****   TIM_ClockConfigTypeDef sClockSourceConfig = {0};
+ 121:Core/Src/CommunicationProtocol/tim.c ****   TIM_MasterConfigTypeDef sMasterConfig = {0};
+ 122:Core/Src/CommunicationProtocol/tim.c ****   TIM_OC_InitTypeDef sConfigOC = {0};
+ 123:Core/Src/CommunicationProtocol/tim.c **** 
+ 124:Core/Src/CommunicationProtocol/tim.c ****   htim4.Instance = TIM4;
+ 125:Core/Src/CommunicationProtocol/tim.c ****   htim4.Init.Prescaler = 0;
+ 126:Core/Src/CommunicationProtocol/tim.c ****   htim4.Init.CounterMode = TIM_COUNTERMODE_UP;
+ 127:Core/Src/CommunicationProtocol/tim.c ****   htim4.Init.Period = 65535;
+ 128:Core/Src/CommunicationProtocol/tim.c ****   htim4.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+ 129:Core/Src/CommunicationProtocol/tim.c ****   htim4.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+ 130:Core/Src/CommunicationProtocol/tim.c ****   if (HAL_TIM_Base_Init(&htim4) != HAL_OK)
+ 131:Core/Src/CommunicationProtocol/tim.c ****   {
+ 132:Core/Src/CommunicationProtocol/tim.c ****     Error_Handler();
+ 133:Core/Src/CommunicationProtocol/tim.c ****   }
+ 134:Core/Src/CommunicationProtocol/tim.c ****   sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+ 135:Core/Src/CommunicationProtocol/tim.c ****   if (HAL_TIM_ConfigClockSource(&htim4, &sClockSourceConfig) != HAL_OK)
+ 136:Core/Src/CommunicationProtocol/tim.c ****   {
+ 137:Core/Src/CommunicationProtocol/tim.c ****     Error_Handler();
+ 138:Core/Src/CommunicationProtocol/tim.c ****   }
+ 139:Core/Src/CommunicationProtocol/tim.c ****   if (HAL_TIM_PWM_Init(&htim4) != HAL_OK)
+ 140:Core/Src/CommunicationProtocol/tim.c ****   {
+ 141:Core/Src/CommunicationProtocol/tim.c ****     Error_Handler();
+ 142:Core/Src/CommunicationProtocol/tim.c ****   }
+ 143:Core/Src/CommunicationProtocol/tim.c ****   sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+ARM GAS  /var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s 			page 4
+
+
+ 144:Core/Src/CommunicationProtocol/tim.c ****   sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+ 145:Core/Src/CommunicationProtocol/tim.c ****   if (HAL_TIMEx_MasterConfigSynchronization(&htim4, &sMasterConfig) != HAL_OK)
+ 146:Core/Src/CommunicationProtocol/tim.c ****   {
+ 147:Core/Src/CommunicationProtocol/tim.c ****     Error_Handler();
+ 148:Core/Src/CommunicationProtocol/tim.c ****   }
+ 149:Core/Src/CommunicationProtocol/tim.c ****   sConfigOC.OCMode = TIM_OCMODE_PWM1;
+ 150:Core/Src/CommunicationProtocol/tim.c ****   sConfigOC.Pulse = 0;
+ 151:Core/Src/CommunicationProtocol/tim.c ****   sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
+ 152:Core/Src/CommunicationProtocol/tim.c ****   sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
+ 153:Core/Src/CommunicationProtocol/tim.c ****   if (HAL_TIM_PWM_ConfigChannel(&htim4, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
+ 154:Core/Src/CommunicationProtocol/tim.c ****   {
+ 155:Core/Src/CommunicationProtocol/tim.c ****     Error_Handler();
+ 156:Core/Src/CommunicationProtocol/tim.c ****   }
+ 157:Core/Src/CommunicationProtocol/tim.c ****   HAL_TIM_Base_MspInit(&htim4);
+ 158:Core/Src/CommunicationProtocol/tim.c ****   HAL_TIM_MspPostInit(&htim4);
+ 159:Core/Src/CommunicationProtocol/tim.c **** }
+ 160:Core/Src/CommunicationProtocol/tim.c **** 
+ 161:Core/Src/CommunicationProtocol/tim.c **** /* TIM5 init function */
+ 162:Core/Src/CommunicationProtocol/tim.c **** void MX_TIM5_Init(void)
+ 163:Core/Src/CommunicationProtocol/tim.c **** {
+ 164:Core/Src/CommunicationProtocol/tim.c ****   TIM_ClockConfigTypeDef sClockSourceConfig = {0};
+ 165:Core/Src/CommunicationProtocol/tim.c ****   TIM_MasterConfigTypeDef sMasterConfig = {0};
+ 166:Core/Src/CommunicationProtocol/tim.c ****   TIM_OC_InitTypeDef sConfigOC = {0};
+ 167:Core/Src/CommunicationProtocol/tim.c **** 
+ 168:Core/Src/CommunicationProtocol/tim.c ****   htim5.Instance = TIM5;
+ 169:Core/Src/CommunicationProtocol/tim.c ****   htim5.Init.Prescaler = 0;
+ 170:Core/Src/CommunicationProtocol/tim.c ****   htim5.Init.CounterMode = TIM_COUNTERMODE_UP;
+ 171:Core/Src/CommunicationProtocol/tim.c ****   htim5.Init.Period = 4294967295;
+ 172:Core/Src/CommunicationProtocol/tim.c ****   htim5.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+ 173:Core/Src/CommunicationProtocol/tim.c ****   htim5.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+ 174:Core/Src/CommunicationProtocol/tim.c ****   if (HAL_TIM_Base_Init(&htim5) != HAL_OK)
+ 175:Core/Src/CommunicationProtocol/tim.c ****   {
+ 176:Core/Src/CommunicationProtocol/tim.c ****     Error_Handler();
+ 177:Core/Src/CommunicationProtocol/tim.c ****   }
+ 178:Core/Src/CommunicationProtocol/tim.c ****   sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+ 179:Core/Src/CommunicationProtocol/tim.c ****   if (HAL_TIM_ConfigClockSource(&htim5, &sClockSourceConfig) != HAL_OK)
+ 180:Core/Src/CommunicationProtocol/tim.c ****   {
+ 181:Core/Src/CommunicationProtocol/tim.c ****     Error_Handler();
+ 182:Core/Src/CommunicationProtocol/tim.c ****   }
+ 183:Core/Src/CommunicationProtocol/tim.c ****   if (HAL_TIM_PWM_Init(&htim5) != HAL_OK)
+ 184:Core/Src/CommunicationProtocol/tim.c ****   {
+ 185:Core/Src/CommunicationProtocol/tim.c ****     Error_Handler();
+ 186:Core/Src/CommunicationProtocol/tim.c ****   }
+ 187:Core/Src/CommunicationProtocol/tim.c ****   sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+ 188:Core/Src/CommunicationProtocol/tim.c ****   sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+ 189:Core/Src/CommunicationProtocol/tim.c ****   if (HAL_TIMEx_MasterConfigSynchronization(&htim5, &sMasterConfig) != HAL_OK)
+ 190:Core/Src/CommunicationProtocol/tim.c ****   {
+ 191:Core/Src/CommunicationProtocol/tim.c ****     Error_Handler();
+ 192:Core/Src/CommunicationProtocol/tim.c ****   }
+ 193:Core/Src/CommunicationProtocol/tim.c ****   sConfigOC.OCMode = TIM_OCMODE_PWM1;
+ 194:Core/Src/CommunicationProtocol/tim.c ****   sConfigOC.Pulse = 300000000;
+ 195:Core/Src/CommunicationProtocol/tim.c ****   sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
+ 196:Core/Src/CommunicationProtocol/tim.c ****   sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
+ 197:Core/Src/CommunicationProtocol/tim.c ****   if (HAL_TIM_PWM_ConfigChannel(&htim5, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
+ 198:Core/Src/CommunicationProtocol/tim.c ****   {
+ 199:Core/Src/CommunicationProtocol/tim.c ****     Error_Handler();
+ 200:Core/Src/CommunicationProtocol/tim.c ****   }
+ARM GAS  /var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s 			page 5
+
+
+ 201:Core/Src/CommunicationProtocol/tim.c ****   HAL_TIM_Base_MspInit(&htim5);
+ 202:Core/Src/CommunicationProtocol/tim.c ****   HAL_TIM_MspPostInit(&htim5);
+ 203:Core/Src/CommunicationProtocol/tim.c **** }
+ 204:Core/Src/CommunicationProtocol/tim.c **** 
+ 205:Core/Src/CommunicationProtocol/tim.c **** void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* tim_baseHandle)
+ 206:Core/Src/CommunicationProtocol/tim.c **** {
+  30              		.loc 1 206 1 view -0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 16
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  34              		@ link register save eliminated.
+  35              		.loc 1 206 1 is_stmt 0 view .LVU1
+  36 0000 84B0     		sub	sp, sp, #16
+  37              	.LCFI0:
+  38              		.cfi_def_cfa_offset 16
+ 207:Core/Src/CommunicationProtocol/tim.c **** 
+ 208:Core/Src/CommunicationProtocol/tim.c ****   if(tim_baseHandle->Instance==TIM2)
+  39              		.loc 1 208 3 is_stmt 1 view .LVU2
+  40              		.loc 1 208 20 is_stmt 0 view .LVU3
+  41 0002 0368     		ldr	r3, [r0]
+  42              		.loc 1 208 5 view .LVU4
+  43 0004 B3F1804F 		cmp	r3, #1073741824
+  44 0008 15D0     		beq	.L7
+ 209:Core/Src/CommunicationProtocol/tim.c ****   {
+ 210:Core/Src/CommunicationProtocol/tim.c ****     /* TIM2 clock enable */
+ 211:Core/Src/CommunicationProtocol/tim.c ****     __HAL_RCC_TIM2_CLK_ENABLE();
+ 212:Core/Src/CommunicationProtocol/tim.c ****   }
+ 213:Core/Src/CommunicationProtocol/tim.c ****   else if(tim_baseHandle->Instance==TIM3)
+  45              		.loc 1 213 8 is_stmt 1 view .LVU5
+  46              		.loc 1 213 10 is_stmt 0 view .LVU6
+  47 000a 1F4A     		ldr	r2, .L10
+  48 000c 9342     		cmp	r3, r2
+  49 000e 20D0     		beq	.L8
+ 214:Core/Src/CommunicationProtocol/tim.c ****   {
+ 215:Core/Src/CommunicationProtocol/tim.c ****     /* TIM3 clock enable */
+ 216:Core/Src/CommunicationProtocol/tim.c ****     __HAL_RCC_TIM3_CLK_ENABLE();
+ 217:Core/Src/CommunicationProtocol/tim.c ****   }
+ 218:Core/Src/CommunicationProtocol/tim.c ****   else if(tim_baseHandle->Instance==TIM4)
+  50              		.loc 1 218 8 is_stmt 1 view .LVU7
+  51              		.loc 1 218 10 is_stmt 0 view .LVU8
+  52 0010 1E4A     		ldr	r2, .L10+4
+  53 0012 9342     		cmp	r3, r2
+  54 0014 2AD0     		beq	.L9
+ 219:Core/Src/CommunicationProtocol/tim.c ****   {
+ 220:Core/Src/CommunicationProtocol/tim.c ****     /* TIM4 clock enable */
+ 221:Core/Src/CommunicationProtocol/tim.c ****     __HAL_RCC_TIM4_CLK_ENABLE();
+ 222:Core/Src/CommunicationProtocol/tim.c ****   }
+ 223:Core/Src/CommunicationProtocol/tim.c ****   else if(tim_baseHandle->Instance==TIM5)
+  55              		.loc 1 223 8 is_stmt 1 view .LVU9
+  56              		.loc 1 223 10 is_stmt 0 view .LVU10
+  57 0016 1E4A     		ldr	r2, .L10+8
+  58 0018 9342     		cmp	r3, r2
+  59 001a 18D1     		bne	.L1
+ 224:Core/Src/CommunicationProtocol/tim.c ****   {
+ 225:Core/Src/CommunicationProtocol/tim.c ****     /* TIM5 clock enable */
+ 226:Core/Src/CommunicationProtocol/tim.c ****     __HAL_RCC_TIM5_CLK_ENABLE();
+  60              		.loc 1 226 5 is_stmt 1 view .LVU11
+ARM GAS  /var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s 			page 6
+
+
+  61              	.LBB2:
+  62              		.loc 1 226 5 view .LVU12
+  63 001c 0023     		movs	r3, #0
+  64 001e 0393     		str	r3, [sp, #12]
+  65              		.loc 1 226 5 view .LVU13
+  66 0020 1C4B     		ldr	r3, .L10+12
+  67 0022 1A6C     		ldr	r2, [r3, #64]
+  68 0024 42F00802 		orr	r2, r2, #8
+  69 0028 1A64     		str	r2, [r3, #64]
+  70              		.loc 1 226 5 view .LVU14
+  71 002a 1B6C     		ldr	r3, [r3, #64]
+  72 002c 03F00803 		and	r3, r3, #8
+  73 0030 0393     		str	r3, [sp, #12]
+  74              		.loc 1 226 5 view .LVU15
+  75 0032 039B     		ldr	r3, [sp, #12]
+  76              	.LBE2:
+  77              		.loc 1 226 5 view .LVU16
+ 227:Core/Src/CommunicationProtocol/tim.c ****   }
+ 228:Core/Src/CommunicationProtocol/tim.c **** }
+  78              		.loc 1 228 1 is_stmt 0 view .LVU17
+  79 0034 0BE0     		b	.L1
+  80              	.L7:
+ 211:Core/Src/CommunicationProtocol/tim.c ****   }
+  81              		.loc 1 211 5 is_stmt 1 view .LVU18
+  82              	.LBB3:
+ 211:Core/Src/CommunicationProtocol/tim.c ****   }
+  83              		.loc 1 211 5 view .LVU19
+  84 0036 0023     		movs	r3, #0
+  85 0038 0093     		str	r3, [sp]
+ 211:Core/Src/CommunicationProtocol/tim.c ****   }
+  86              		.loc 1 211 5 view .LVU20
+  87 003a 164B     		ldr	r3, .L10+12
+  88 003c 1A6C     		ldr	r2, [r3, #64]
+  89 003e 42F00102 		orr	r2, r2, #1
+  90 0042 1A64     		str	r2, [r3, #64]
+ 211:Core/Src/CommunicationProtocol/tim.c ****   }
+  91              		.loc 1 211 5 view .LVU21
+  92 0044 1B6C     		ldr	r3, [r3, #64]
+  93 0046 03F00103 		and	r3, r3, #1
+  94 004a 0093     		str	r3, [sp]
+ 211:Core/Src/CommunicationProtocol/tim.c ****   }
+  95              		.loc 1 211 5 view .LVU22
+  96 004c 009B     		ldr	r3, [sp]
+  97              	.LBE3:
+ 211:Core/Src/CommunicationProtocol/tim.c ****   }
+  98              		.loc 1 211 5 view .LVU23
+  99              	.L1:
+ 100              		.loc 1 228 1 is_stmt 0 view .LVU24
+ 101 004e 04B0     		add	sp, sp, #16
+ 102              	.LCFI1:
+ 103              		.cfi_remember_state
+ 104              		.cfi_def_cfa_offset 0
+ 105              		@ sp needed
+ 106 0050 7047     		bx	lr
+ 107              	.L8:
+ 108              	.LCFI2:
+ 109              		.cfi_restore_state
+ARM GAS  /var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s 			page 7
+
+
+ 216:Core/Src/CommunicationProtocol/tim.c ****   }
+ 110              		.loc 1 216 5 is_stmt 1 view .LVU25
+ 111              	.LBB4:
+ 216:Core/Src/CommunicationProtocol/tim.c ****   }
+ 112              		.loc 1 216 5 view .LVU26
+ 113 0052 0023     		movs	r3, #0
+ 114 0054 0193     		str	r3, [sp, #4]
+ 216:Core/Src/CommunicationProtocol/tim.c ****   }
+ 115              		.loc 1 216 5 view .LVU27
+ 116 0056 0F4B     		ldr	r3, .L10+12
+ 117 0058 1A6C     		ldr	r2, [r3, #64]
+ 118 005a 42F00202 		orr	r2, r2, #2
+ 119 005e 1A64     		str	r2, [r3, #64]
+ 216:Core/Src/CommunicationProtocol/tim.c ****   }
+ 120              		.loc 1 216 5 view .LVU28
+ 121 0060 1B6C     		ldr	r3, [r3, #64]
+ 122 0062 03F00203 		and	r3, r3, #2
+ 123 0066 0193     		str	r3, [sp, #4]
+ 216:Core/Src/CommunicationProtocol/tim.c ****   }
+ 124              		.loc 1 216 5 view .LVU29
+ 125 0068 019B     		ldr	r3, [sp, #4]
+ 126              	.LBE4:
+ 216:Core/Src/CommunicationProtocol/tim.c ****   }
+ 127              		.loc 1 216 5 view .LVU30
+ 128 006a F0E7     		b	.L1
+ 129              	.L9:
+ 221:Core/Src/CommunicationProtocol/tim.c ****   }
+ 130              		.loc 1 221 5 view .LVU31
+ 131              	.LBB5:
+ 221:Core/Src/CommunicationProtocol/tim.c ****   }
+ 132              		.loc 1 221 5 view .LVU32
+ 133 006c 0023     		movs	r3, #0
+ 134 006e 0293     		str	r3, [sp, #8]
+ 221:Core/Src/CommunicationProtocol/tim.c ****   }
+ 135              		.loc 1 221 5 view .LVU33
+ 136 0070 084B     		ldr	r3, .L10+12
+ 137 0072 1A6C     		ldr	r2, [r3, #64]
+ 138 0074 42F00402 		orr	r2, r2, #4
+ 139 0078 1A64     		str	r2, [r3, #64]
+ 221:Core/Src/CommunicationProtocol/tim.c ****   }
+ 140              		.loc 1 221 5 view .LVU34
+ 141 007a 1B6C     		ldr	r3, [r3, #64]
+ 142 007c 03F00403 		and	r3, r3, #4
+ 143 0080 0293     		str	r3, [sp, #8]
+ 221:Core/Src/CommunicationProtocol/tim.c ****   }
+ 144              		.loc 1 221 5 view .LVU35
+ 145 0082 029B     		ldr	r3, [sp, #8]
+ 146              	.LBE5:
+ 221:Core/Src/CommunicationProtocol/tim.c ****   }
+ 147              		.loc 1 221 5 view .LVU36
+ 148 0084 E3E7     		b	.L1
+ 149              	.L11:
+ 150 0086 00BF     		.align	2
+ 151              	.L10:
+ 152 0088 00040040 		.word	1073742848
+ 153 008c 00080040 		.word	1073743872
+ 154 0090 000C0040 		.word	1073744896
+ARM GAS  /var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s 			page 8
+
+
+ 155 0094 00380240 		.word	1073887232
+ 156              		.cfi_endproc
+ 157              	.LFE138:
+ 159              		.section	.text.HAL_TIM_MspPostInit,"ax",%progbits
+ 160              		.align	1
+ 161              		.global	HAL_TIM_MspPostInit
+ 162              		.syntax unified
+ 163              		.thumb
+ 164              		.thumb_func
+ 166              	HAL_TIM_MspPostInit:
+ 167              	.LVL1:
+ 168              	.LFB139:
+ 229:Core/Src/CommunicationProtocol/tim.c **** void HAL_TIM_MspPostInit(TIM_HandleTypeDef* timHandle)
+ 230:Core/Src/CommunicationProtocol/tim.c **** {
+ 169              		.loc 1 230 1 view -0
+ 170              		.cfi_startproc
+ 171              		@ args = 0, pretend = 0, frame = 40
+ 172              		@ frame_needed = 0, uses_anonymous_args = 0
+ 173              		.loc 1 230 1 is_stmt 0 view .LVU38
+ 174 0000 00B5     		push	{lr}
+ 175              	.LCFI3:
+ 176              		.cfi_def_cfa_offset 4
+ 177              		.cfi_offset 14, -4
+ 178 0002 8BB0     		sub	sp, sp, #44
+ 179              	.LCFI4:
+ 180              		.cfi_def_cfa_offset 48
+ 231:Core/Src/CommunicationProtocol/tim.c **** 
+ 232:Core/Src/CommunicationProtocol/tim.c ****   GPIO_InitTypeDef GPIO_InitStruct = {0};
+ 181              		.loc 1 232 3 is_stmt 1 view .LVU39
+ 182              		.loc 1 232 20 is_stmt 0 view .LVU40
+ 183 0004 0023     		movs	r3, #0
+ 184 0006 0593     		str	r3, [sp, #20]
+ 185 0008 0693     		str	r3, [sp, #24]
+ 186 000a 0793     		str	r3, [sp, #28]
+ 187 000c 0893     		str	r3, [sp, #32]
+ 188 000e 0993     		str	r3, [sp, #36]
+ 233:Core/Src/CommunicationProtocol/tim.c ****   if(timHandle->Instance==TIM2)
+ 189              		.loc 1 233 3 is_stmt 1 view .LVU41
+ 190              		.loc 1 233 15 is_stmt 0 view .LVU42
+ 191 0010 0368     		ldr	r3, [r0]
+ 192              		.loc 1 233 5 view .LVU43
+ 193 0012 B3F1804F 		cmp	r3, #1073741824
+ 194 0016 0BD0     		beq	.L18
+ 234:Core/Src/CommunicationProtocol/tim.c ****   {
+ 235:Core/Src/CommunicationProtocol/tim.c ****     __HAL_RCC_GPIOA_CLK_ENABLE();
+ 236:Core/Src/CommunicationProtocol/tim.c ****     /**TIM2 GPIO Configuration
+ 237:Core/Src/CommunicationProtocol/tim.c ****     PA15     ------> TIM2_CH1
+ 238:Core/Src/CommunicationProtocol/tim.c ****     */
+ 239:Core/Src/CommunicationProtocol/tim.c ****     GPIO_InitStruct.Pin = GPIO_PIN_15;
+ 240:Core/Src/CommunicationProtocol/tim.c ****     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+ 241:Core/Src/CommunicationProtocol/tim.c ****     GPIO_InitStruct.Pull = GPIO_NOPULL;
+ 242:Core/Src/CommunicationProtocol/tim.c ****     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+ 243:Core/Src/CommunicationProtocol/tim.c ****     GPIO_InitStruct.Alternate = GPIO_AF1_TIM2;
+ 244:Core/Src/CommunicationProtocol/tim.c ****     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+ 245:Core/Src/CommunicationProtocol/tim.c ****   }
+ 246:Core/Src/CommunicationProtocol/tim.c ****   else if(timHandle->Instance==TIM3)
+ 195              		.loc 1 246 8 is_stmt 1 view .LVU44
+ARM GAS  /var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s 			page 9
+
+
+ 196              		.loc 1 246 10 is_stmt 0 view .LVU45
+ 197 0018 324A     		ldr	r2, .L22
+ 198 001a 9342     		cmp	r3, r2
+ 199 001c 20D0     		beq	.L19
+ 247:Core/Src/CommunicationProtocol/tim.c ****   {
+ 248:Core/Src/CommunicationProtocol/tim.c ****     __HAL_RCC_GPIOA_CLK_ENABLE();
+ 249:Core/Src/CommunicationProtocol/tim.c ****     /**TIM3 GPIO Configuration
+ 250:Core/Src/CommunicationProtocol/tim.c ****     PA6     ------> TIM3_CH1
+ 251:Core/Src/CommunicationProtocol/tim.c ****     */
+ 252:Core/Src/CommunicationProtocol/tim.c ****     GPIO_InitStruct.Pin = GPIO_PIN_6;
+ 253:Core/Src/CommunicationProtocol/tim.c ****     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+ 254:Core/Src/CommunicationProtocol/tim.c ****     GPIO_InitStruct.Pull = GPIO_NOPULL;
+ 255:Core/Src/CommunicationProtocol/tim.c ****     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+ 256:Core/Src/CommunicationProtocol/tim.c ****     GPIO_InitStruct.Alternate = GPIO_AF2_TIM3;
+ 257:Core/Src/CommunicationProtocol/tim.c ****     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+ 258:Core/Src/CommunicationProtocol/tim.c ****   }
+ 259:Core/Src/CommunicationProtocol/tim.c ****   else if(timHandle->Instance==TIM4)
+ 200              		.loc 1 259 8 is_stmt 1 view .LVU46
+ 201              		.loc 1 259 10 is_stmt 0 view .LVU47
+ 202 001e 324A     		ldr	r2, .L22+4
+ 203 0020 9342     		cmp	r3, r2
+ 204 0022 33D0     		beq	.L20
+ 260:Core/Src/CommunicationProtocol/tim.c ****   {
+ 261:Core/Src/CommunicationProtocol/tim.c ****     __HAL_RCC_GPIOB_CLK_ENABLE();
+ 262:Core/Src/CommunicationProtocol/tim.c ****     /**TIM4 GPIO Configuration
+ 263:Core/Src/CommunicationProtocol/tim.c ****     PB6     ------> TIM4_CH1
+ 264:Core/Src/CommunicationProtocol/tim.c ****     */
+ 265:Core/Src/CommunicationProtocol/tim.c ****     GPIO_InitStruct.Pin = GPIO_PIN_6;
+ 266:Core/Src/CommunicationProtocol/tim.c ****     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+ 267:Core/Src/CommunicationProtocol/tim.c ****     GPIO_InitStruct.Pull = GPIO_NOPULL;
+ 268:Core/Src/CommunicationProtocol/tim.c ****     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+ 269:Core/Src/CommunicationProtocol/tim.c ****     GPIO_InitStruct.Alternate = GPIO_AF2_TIM4;
+ 270:Core/Src/CommunicationProtocol/tim.c ****     HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+ 271:Core/Src/CommunicationProtocol/tim.c ****   }
+ 272:Core/Src/CommunicationProtocol/tim.c ****   else if(timHandle->Instance==TIM5)
+ 205              		.loc 1 272 8 is_stmt 1 view .LVU48
+ 206              		.loc 1 272 10 is_stmt 0 view .LVU49
+ 207 0024 314A     		ldr	r2, .L22+8
+ 208 0026 9342     		cmp	r3, r2
+ 209 0028 46D0     		beq	.L21
+ 210              	.LVL2:
+ 211              	.L12:
+ 273:Core/Src/CommunicationProtocol/tim.c ****   {
+ 274:Core/Src/CommunicationProtocol/tim.c ****     __HAL_RCC_GPIOA_CLK_ENABLE();
+ 275:Core/Src/CommunicationProtocol/tim.c ****     /**TIM5 GPIO Configuration
+ 276:Core/Src/CommunicationProtocol/tim.c ****     PA0-WKUP     ------> TIM5_CH1
+ 277:Core/Src/CommunicationProtocol/tim.c ****     */
+ 278:Core/Src/CommunicationProtocol/tim.c ****     GPIO_InitStruct.Pin = GPIO_PIN_0;
+ 279:Core/Src/CommunicationProtocol/tim.c ****     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+ 280:Core/Src/CommunicationProtocol/tim.c ****     GPIO_InitStruct.Pull = GPIO_NOPULL;
+ 281:Core/Src/CommunicationProtocol/tim.c ****     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+ 282:Core/Src/CommunicationProtocol/tim.c ****     GPIO_InitStruct.Alternate = GPIO_AF2_TIM5;
+ 283:Core/Src/CommunicationProtocol/tim.c ****     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+ 284:Core/Src/CommunicationProtocol/tim.c ****   }
+ 285:Core/Src/CommunicationProtocol/tim.c **** 
+ 286:Core/Src/CommunicationProtocol/tim.c **** }
+ 212              		.loc 1 286 1 view .LVU50
+ARM GAS  /var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s 			page 10
+
+
+ 213 002a 0BB0     		add	sp, sp, #44
+ 214              	.LCFI5:
+ 215              		.cfi_remember_state
+ 216              		.cfi_def_cfa_offset 4
+ 217              		@ sp needed
+ 218 002c 5DF804FB 		ldr	pc, [sp], #4
+ 219              	.LVL3:
+ 220              	.L18:
+ 221              	.LCFI6:
+ 222              		.cfi_restore_state
+ 235:Core/Src/CommunicationProtocol/tim.c ****     /**TIM2 GPIO Configuration
+ 223              		.loc 1 235 5 is_stmt 1 view .LVU51
+ 224              	.LBB6:
+ 235:Core/Src/CommunicationProtocol/tim.c ****     /**TIM2 GPIO Configuration
+ 225              		.loc 1 235 5 view .LVU52
+ 226 0030 0023     		movs	r3, #0
+ 227 0032 0193     		str	r3, [sp, #4]
+ 235:Core/Src/CommunicationProtocol/tim.c ****     /**TIM2 GPIO Configuration
+ 228              		.loc 1 235 5 view .LVU53
+ 229 0034 2E4B     		ldr	r3, .L22+12
+ 230 0036 1A6B     		ldr	r2, [r3, #48]
+ 231 0038 42F00102 		orr	r2, r2, #1
+ 232 003c 1A63     		str	r2, [r3, #48]
+ 235:Core/Src/CommunicationProtocol/tim.c ****     /**TIM2 GPIO Configuration
+ 233              		.loc 1 235 5 view .LVU54
+ 234 003e 1B6B     		ldr	r3, [r3, #48]
+ 235 0040 03F00103 		and	r3, r3, #1
+ 236 0044 0193     		str	r3, [sp, #4]
+ 235:Core/Src/CommunicationProtocol/tim.c ****     /**TIM2 GPIO Configuration
+ 237              		.loc 1 235 5 view .LVU55
+ 238 0046 019B     		ldr	r3, [sp, #4]
+ 239              	.LBE6:
+ 235:Core/Src/CommunicationProtocol/tim.c ****     /**TIM2 GPIO Configuration
+ 240              		.loc 1 235 5 view .LVU56
+ 239:Core/Src/CommunicationProtocol/tim.c ****     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+ 241              		.loc 1 239 5 view .LVU57
+ 239:Core/Src/CommunicationProtocol/tim.c ****     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+ 242              		.loc 1 239 25 is_stmt 0 view .LVU58
+ 243 0048 4FF40043 		mov	r3, #32768
+ 244 004c 0593     		str	r3, [sp, #20]
+ 240:Core/Src/CommunicationProtocol/tim.c ****     GPIO_InitStruct.Pull = GPIO_NOPULL;
+ 245              		.loc 1 240 5 is_stmt 1 view .LVU59
+ 240:Core/Src/CommunicationProtocol/tim.c ****     GPIO_InitStruct.Pull = GPIO_NOPULL;
+ 246              		.loc 1 240 26 is_stmt 0 view .LVU60
+ 247 004e 0223     		movs	r3, #2
+ 248 0050 0693     		str	r3, [sp, #24]
+ 241:Core/Src/CommunicationProtocol/tim.c ****     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+ 249              		.loc 1 241 5 is_stmt 1 view .LVU61
+ 242:Core/Src/CommunicationProtocol/tim.c ****     GPIO_InitStruct.Alternate = GPIO_AF1_TIM2;
+ 250              		.loc 1 242 5 view .LVU62
+ 243:Core/Src/CommunicationProtocol/tim.c ****     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+ 251              		.loc 1 243 5 view .LVU63
+ 243:Core/Src/CommunicationProtocol/tim.c ****     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+ 252              		.loc 1 243 31 is_stmt 0 view .LVU64
+ 253 0052 0123     		movs	r3, #1
+ 254 0054 0993     		str	r3, [sp, #36]
+ 244:Core/Src/CommunicationProtocol/tim.c ****   }
+ARM GAS  /var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s 			page 11
+
+
+ 255              		.loc 1 244 5 is_stmt 1 view .LVU65
+ 256 0056 05A9     		add	r1, sp, #20
+ 257 0058 2648     		ldr	r0, .L22+16
+ 258              	.LVL4:
+ 244:Core/Src/CommunicationProtocol/tim.c ****   }
+ 259              		.loc 1 244 5 is_stmt 0 view .LVU66
+ 260 005a FFF7FEFF 		bl	HAL_GPIO_Init
+ 261              	.LVL5:
+ 262 005e E4E7     		b	.L12
+ 263              	.LVL6:
+ 264              	.L19:
+ 248:Core/Src/CommunicationProtocol/tim.c ****     /**TIM3 GPIO Configuration
+ 265              		.loc 1 248 5 is_stmt 1 view .LVU67
+ 266              	.LBB7:
+ 248:Core/Src/CommunicationProtocol/tim.c ****     /**TIM3 GPIO Configuration
+ 267              		.loc 1 248 5 view .LVU68
+ 268 0060 0023     		movs	r3, #0
+ 269 0062 0293     		str	r3, [sp, #8]
+ 248:Core/Src/CommunicationProtocol/tim.c ****     /**TIM3 GPIO Configuration
+ 270              		.loc 1 248 5 view .LVU69
+ 271 0064 224B     		ldr	r3, .L22+12
+ 272 0066 1A6B     		ldr	r2, [r3, #48]
+ 273 0068 42F00102 		orr	r2, r2, #1
+ 274 006c 1A63     		str	r2, [r3, #48]
+ 248:Core/Src/CommunicationProtocol/tim.c ****     /**TIM3 GPIO Configuration
+ 275              		.loc 1 248 5 view .LVU70
+ 276 006e 1B6B     		ldr	r3, [r3, #48]
+ 277 0070 03F00103 		and	r3, r3, #1
+ 278 0074 0293     		str	r3, [sp, #8]
+ 248:Core/Src/CommunicationProtocol/tim.c ****     /**TIM3 GPIO Configuration
+ 279              		.loc 1 248 5 view .LVU71
+ 280 0076 029B     		ldr	r3, [sp, #8]
+ 281              	.LBE7:
+ 248:Core/Src/CommunicationProtocol/tim.c ****     /**TIM3 GPIO Configuration
+ 282              		.loc 1 248 5 view .LVU72
+ 252:Core/Src/CommunicationProtocol/tim.c ****     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+ 283              		.loc 1 252 5 view .LVU73
+ 252:Core/Src/CommunicationProtocol/tim.c ****     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+ 284              		.loc 1 252 25 is_stmt 0 view .LVU74
+ 285 0078 4023     		movs	r3, #64
+ 286 007a 0593     		str	r3, [sp, #20]
+ 253:Core/Src/CommunicationProtocol/tim.c ****     GPIO_InitStruct.Pull = GPIO_NOPULL;
+ 287              		.loc 1 253 5 is_stmt 1 view .LVU75
+ 253:Core/Src/CommunicationProtocol/tim.c ****     GPIO_InitStruct.Pull = GPIO_NOPULL;
+ 288              		.loc 1 253 26 is_stmt 0 view .LVU76
+ 289 007c 0223     		movs	r3, #2
+ 290 007e 0693     		str	r3, [sp, #24]
+ 254:Core/Src/CommunicationProtocol/tim.c ****     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+ 291              		.loc 1 254 5 is_stmt 1 view .LVU77
+ 255:Core/Src/CommunicationProtocol/tim.c ****     GPIO_InitStruct.Alternate = GPIO_AF2_TIM3;
+ 292              		.loc 1 255 5 view .LVU78
+ 256:Core/Src/CommunicationProtocol/tim.c ****     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+ 293              		.loc 1 256 5 view .LVU79
+ 256:Core/Src/CommunicationProtocol/tim.c ****     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+ 294              		.loc 1 256 31 is_stmt 0 view .LVU80
+ 295 0080 0993     		str	r3, [sp, #36]
+ 257:Core/Src/CommunicationProtocol/tim.c ****   }
+ARM GAS  /var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s 			page 12
+
+
+ 296              		.loc 1 257 5 is_stmt 1 view .LVU81
+ 297 0082 05A9     		add	r1, sp, #20
+ 298 0084 1B48     		ldr	r0, .L22+16
+ 299              	.LVL7:
+ 257:Core/Src/CommunicationProtocol/tim.c ****   }
+ 300              		.loc 1 257 5 is_stmt 0 view .LVU82
+ 301 0086 FFF7FEFF 		bl	HAL_GPIO_Init
+ 302              	.LVL8:
+ 303 008a CEE7     		b	.L12
+ 304              	.LVL9:
+ 305              	.L20:
+ 261:Core/Src/CommunicationProtocol/tim.c ****     /**TIM4 GPIO Configuration
+ 306              		.loc 1 261 5 is_stmt 1 view .LVU83
+ 307              	.LBB8:
+ 261:Core/Src/CommunicationProtocol/tim.c ****     /**TIM4 GPIO Configuration
+ 308              		.loc 1 261 5 view .LVU84
+ 309 008c 0023     		movs	r3, #0
+ 310 008e 0393     		str	r3, [sp, #12]
+ 261:Core/Src/CommunicationProtocol/tim.c ****     /**TIM4 GPIO Configuration
+ 311              		.loc 1 261 5 view .LVU85
+ 312 0090 174B     		ldr	r3, .L22+12
+ 313 0092 1A6B     		ldr	r2, [r3, #48]
+ 314 0094 42F00202 		orr	r2, r2, #2
+ 315 0098 1A63     		str	r2, [r3, #48]
+ 261:Core/Src/CommunicationProtocol/tim.c ****     /**TIM4 GPIO Configuration
+ 316              		.loc 1 261 5 view .LVU86
+ 317 009a 1B6B     		ldr	r3, [r3, #48]
+ 318 009c 03F00203 		and	r3, r3, #2
+ 319 00a0 0393     		str	r3, [sp, #12]
+ 261:Core/Src/CommunicationProtocol/tim.c ****     /**TIM4 GPIO Configuration
+ 320              		.loc 1 261 5 view .LVU87
+ 321 00a2 039B     		ldr	r3, [sp, #12]
+ 322              	.LBE8:
+ 261:Core/Src/CommunicationProtocol/tim.c ****     /**TIM4 GPIO Configuration
+ 323              		.loc 1 261 5 view .LVU88
+ 265:Core/Src/CommunicationProtocol/tim.c ****     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+ 324              		.loc 1 265 5 view .LVU89
+ 265:Core/Src/CommunicationProtocol/tim.c ****     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+ 325              		.loc 1 265 25 is_stmt 0 view .LVU90
+ 326 00a4 4023     		movs	r3, #64
+ 327 00a6 0593     		str	r3, [sp, #20]
+ 266:Core/Src/CommunicationProtocol/tim.c ****     GPIO_InitStruct.Pull = GPIO_NOPULL;
+ 328              		.loc 1 266 5 is_stmt 1 view .LVU91
+ 266:Core/Src/CommunicationProtocol/tim.c ****     GPIO_InitStruct.Pull = GPIO_NOPULL;
+ 329              		.loc 1 266 26 is_stmt 0 view .LVU92
+ 330 00a8 0223     		movs	r3, #2
+ 331 00aa 0693     		str	r3, [sp, #24]
+ 267:Core/Src/CommunicationProtocol/tim.c ****     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+ 332              		.loc 1 267 5 is_stmt 1 view .LVU93
+ 268:Core/Src/CommunicationProtocol/tim.c ****     GPIO_InitStruct.Alternate = GPIO_AF2_TIM4;
+ 333              		.loc 1 268 5 view .LVU94
+ 269:Core/Src/CommunicationProtocol/tim.c ****     HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+ 334              		.loc 1 269 5 view .LVU95
+ 269:Core/Src/CommunicationProtocol/tim.c ****     HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+ 335              		.loc 1 269 31 is_stmt 0 view .LVU96
+ 336 00ac 0993     		str	r3, [sp, #36]
+ 270:Core/Src/CommunicationProtocol/tim.c ****   }
+ARM GAS  /var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s 			page 13
+
+
+ 337              		.loc 1 270 5 is_stmt 1 view .LVU97
+ 338 00ae 05A9     		add	r1, sp, #20
+ 339 00b0 1148     		ldr	r0, .L22+20
+ 340              	.LVL10:
+ 270:Core/Src/CommunicationProtocol/tim.c ****   }
+ 341              		.loc 1 270 5 is_stmt 0 view .LVU98
+ 342 00b2 FFF7FEFF 		bl	HAL_GPIO_Init
+ 343              	.LVL11:
+ 344 00b6 B8E7     		b	.L12
+ 345              	.LVL12:
+ 346              	.L21:
+ 274:Core/Src/CommunicationProtocol/tim.c ****     /**TIM5 GPIO Configuration
+ 347              		.loc 1 274 5 is_stmt 1 view .LVU99
+ 348              	.LBB9:
+ 274:Core/Src/CommunicationProtocol/tim.c ****     /**TIM5 GPIO Configuration
+ 349              		.loc 1 274 5 view .LVU100
+ 350 00b8 0023     		movs	r3, #0
+ 351 00ba 0493     		str	r3, [sp, #16]
+ 274:Core/Src/CommunicationProtocol/tim.c ****     /**TIM5 GPIO Configuration
+ 352              		.loc 1 274 5 view .LVU101
+ 353 00bc 0C4B     		ldr	r3, .L22+12
+ 354 00be 1A6B     		ldr	r2, [r3, #48]
+ 355 00c0 42F00102 		orr	r2, r2, #1
+ 356 00c4 1A63     		str	r2, [r3, #48]
+ 274:Core/Src/CommunicationProtocol/tim.c ****     /**TIM5 GPIO Configuration
+ 357              		.loc 1 274 5 view .LVU102
+ 358 00c6 1B6B     		ldr	r3, [r3, #48]
+ 359 00c8 03F00103 		and	r3, r3, #1
+ 360 00cc 0493     		str	r3, [sp, #16]
+ 274:Core/Src/CommunicationProtocol/tim.c ****     /**TIM5 GPIO Configuration
+ 361              		.loc 1 274 5 view .LVU103
+ 362 00ce 049B     		ldr	r3, [sp, #16]
+ 363              	.LBE9:
+ 274:Core/Src/CommunicationProtocol/tim.c ****     /**TIM5 GPIO Configuration
+ 364              		.loc 1 274 5 view .LVU104
+ 278:Core/Src/CommunicationProtocol/tim.c ****     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+ 365              		.loc 1 278 5 view .LVU105
+ 278:Core/Src/CommunicationProtocol/tim.c ****     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+ 366              		.loc 1 278 25 is_stmt 0 view .LVU106
+ 367 00d0 0123     		movs	r3, #1
+ 368 00d2 0593     		str	r3, [sp, #20]
+ 279:Core/Src/CommunicationProtocol/tim.c ****     GPIO_InitStruct.Pull = GPIO_NOPULL;
+ 369              		.loc 1 279 5 is_stmt 1 view .LVU107
+ 279:Core/Src/CommunicationProtocol/tim.c ****     GPIO_InitStruct.Pull = GPIO_NOPULL;
+ 370              		.loc 1 279 26 is_stmt 0 view .LVU108
+ 371 00d4 0223     		movs	r3, #2
+ 372 00d6 0693     		str	r3, [sp, #24]
+ 280:Core/Src/CommunicationProtocol/tim.c ****     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+ 373              		.loc 1 280 5 is_stmt 1 view .LVU109
+ 281:Core/Src/CommunicationProtocol/tim.c ****     GPIO_InitStruct.Alternate = GPIO_AF2_TIM5;
+ 374              		.loc 1 281 5 view .LVU110
+ 282:Core/Src/CommunicationProtocol/tim.c ****     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+ 375              		.loc 1 282 5 view .LVU111
+ 282:Core/Src/CommunicationProtocol/tim.c ****     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+ 376              		.loc 1 282 31 is_stmt 0 view .LVU112
+ 377 00d8 0993     		str	r3, [sp, #36]
+ 283:Core/Src/CommunicationProtocol/tim.c ****   }
+ARM GAS  /var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s 			page 14
+
+
+ 378              		.loc 1 283 5 is_stmt 1 view .LVU113
+ 379 00da 05A9     		add	r1, sp, #20
+ 380 00dc 0548     		ldr	r0, .L22+16
+ 381              	.LVL13:
+ 283:Core/Src/CommunicationProtocol/tim.c ****   }
+ 382              		.loc 1 283 5 is_stmt 0 view .LVU114
+ 383 00de FFF7FEFF 		bl	HAL_GPIO_Init
+ 384              	.LVL14:
+ 385              		.loc 1 286 1 view .LVU115
+ 386 00e2 A2E7     		b	.L12
+ 387              	.L23:
+ 388              		.align	2
+ 389              	.L22:
+ 390 00e4 00040040 		.word	1073742848
+ 391 00e8 00080040 		.word	1073743872
+ 392 00ec 000C0040 		.word	1073744896
+ 393 00f0 00380240 		.word	1073887232
+ 394 00f4 00000240 		.word	1073872896
+ 395 00f8 00040240 		.word	1073873920
+ 396              		.cfi_endproc
+ 397              	.LFE139:
+ 399              		.section	.text.MX_TIM2_Init,"ax",%progbits
+ 400              		.align	1
+ 401              		.global	MX_TIM2_Init
+ 402              		.syntax unified
+ 403              		.thumb
+ 404              		.thumb_func
+ 406              	MX_TIM2_Init:
+ 407              	.LFB134:
+  30:Core/Src/CommunicationProtocol/tim.c ****   TIM_ClockConfigTypeDef sClockSourceConfig = {0};
+ 408              		.loc 1 30 1 is_stmt 1 view -0
+ 409              		.cfi_startproc
+ 410              		@ args = 0, pretend = 0, frame = 56
+ 411              		@ frame_needed = 0, uses_anonymous_args = 0
+ 412 0000 10B5     		push	{r4, lr}
+ 413              	.LCFI7:
+ 414              		.cfi_def_cfa_offset 8
+ 415              		.cfi_offset 4, -8
+ 416              		.cfi_offset 14, -4
+ 417 0002 8EB0     		sub	sp, sp, #56
+ 418              	.LCFI8:
+ 419              		.cfi_def_cfa_offset 64
+  31:Core/Src/CommunicationProtocol/tim.c ****   TIM_MasterConfigTypeDef sMasterConfig = {0};
+ 420              		.loc 1 31 3 view .LVU117
+  31:Core/Src/CommunicationProtocol/tim.c ****   TIM_MasterConfigTypeDef sMasterConfig = {0};
+ 421              		.loc 1 31 26 is_stmt 0 view .LVU118
+ 422 0004 0023     		movs	r3, #0
+ 423 0006 0A93     		str	r3, [sp, #40]
+ 424 0008 0B93     		str	r3, [sp, #44]
+ 425 000a 0C93     		str	r3, [sp, #48]
+ 426 000c 0D93     		str	r3, [sp, #52]
+  32:Core/Src/CommunicationProtocol/tim.c ****   TIM_OC_InitTypeDef sConfigOC = {0};
+ 427              		.loc 1 32 3 is_stmt 1 view .LVU119
+  32:Core/Src/CommunicationProtocol/tim.c ****   TIM_OC_InitTypeDef sConfigOC = {0};
+ 428              		.loc 1 32 27 is_stmt 0 view .LVU120
+ 429 000e 0893     		str	r3, [sp, #32]
+ 430 0010 0993     		str	r3, [sp, #36]
+ARM GAS  /var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s 			page 15
+
+
+  33:Core/Src/CommunicationProtocol/tim.c **** 
+ 431              		.loc 1 33 3 is_stmt 1 view .LVU121
+  33:Core/Src/CommunicationProtocol/tim.c **** 
+ 432              		.loc 1 33 22 is_stmt 0 view .LVU122
+ 433 0012 0193     		str	r3, [sp, #4]
+ 434 0014 0293     		str	r3, [sp, #8]
+ 435 0016 0393     		str	r3, [sp, #12]
+ 436 0018 0493     		str	r3, [sp, #16]
+ 437 001a 0593     		str	r3, [sp, #20]
+ 438 001c 0693     		str	r3, [sp, #24]
+ 439 001e 0793     		str	r3, [sp, #28]
+  35:Core/Src/CommunicationProtocol/tim.c ****   htim2.Init.Prescaler = 0;
+ 440              		.loc 1 35 3 is_stmt 1 view .LVU123
+  35:Core/Src/CommunicationProtocol/tim.c ****   htim2.Init.Prescaler = 0;
+ 441              		.loc 1 35 18 is_stmt 0 view .LVU124
+ 442 0020 2248     		ldr	r0, .L36
+ 443 0022 4FF08042 		mov	r2, #1073741824
+ 444 0026 0260     		str	r2, [r0]
+  36:Core/Src/CommunicationProtocol/tim.c ****   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
+ 445              		.loc 1 36 3 is_stmt 1 view .LVU125
+  36:Core/Src/CommunicationProtocol/tim.c ****   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
+ 446              		.loc 1 36 24 is_stmt 0 view .LVU126
+ 447 0028 4360     		str	r3, [r0, #4]
+  37:Core/Src/CommunicationProtocol/tim.c ****   htim2.Init.Period = 4294967295;
+ 448              		.loc 1 37 3 is_stmt 1 view .LVU127
+  37:Core/Src/CommunicationProtocol/tim.c ****   htim2.Init.Period = 4294967295;
+ 449              		.loc 1 37 26 is_stmt 0 view .LVU128
+ 450 002a 8360     		str	r3, [r0, #8]
+  38:Core/Src/CommunicationProtocol/tim.c ****   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+ 451              		.loc 1 38 3 is_stmt 1 view .LVU129
+  38:Core/Src/CommunicationProtocol/tim.c ****   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+ 452              		.loc 1 38 21 is_stmt 0 view .LVU130
+ 453 002c 4FF0FF32 		mov	r2, #-1
+ 454 0030 C260     		str	r2, [r0, #12]
+  39:Core/Src/CommunicationProtocol/tim.c ****   htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+ 455              		.loc 1 39 3 is_stmt 1 view .LVU131
+  39:Core/Src/CommunicationProtocol/tim.c ****   htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+ 456              		.loc 1 39 28 is_stmt 0 view .LVU132
+ 457 0032 0361     		str	r3, [r0, #16]
+  40:Core/Src/CommunicationProtocol/tim.c ****   if (HAL_TIM_Base_Init(&htim2) != HAL_OK)
+ 458              		.loc 1 40 3 is_stmt 1 view .LVU133
+  40:Core/Src/CommunicationProtocol/tim.c ****   if (HAL_TIM_Base_Init(&htim2) != HAL_OK)
+ 459              		.loc 1 40 32 is_stmt 0 view .LVU134
+ 460 0034 8361     		str	r3, [r0, #24]
+  41:Core/Src/CommunicationProtocol/tim.c ****   {
+ 461              		.loc 1 41 3 is_stmt 1 view .LVU135
+  41:Core/Src/CommunicationProtocol/tim.c ****   {
+ 462              		.loc 1 41 7 is_stmt 0 view .LVU136
+ 463 0036 FFF7FEFF 		bl	HAL_TIM_Base_Init
+ 464              	.LVL15:
+  41:Core/Src/CommunicationProtocol/tim.c ****   {
+ 465              		.loc 1 41 6 view .LVU137
+ 466 003a 40BB     		cbnz	r0, .L31
+ 467              	.L25:
+  45:Core/Src/CommunicationProtocol/tim.c ****   if (HAL_TIM_ConfigClockSource(&htim2, &sClockSourceConfig) != HAL_OK)
+ 468              		.loc 1 45 3 is_stmt 1 view .LVU138
+  45:Core/Src/CommunicationProtocol/tim.c ****   if (HAL_TIM_ConfigClockSource(&htim2, &sClockSourceConfig) != HAL_OK)
+ARM GAS  /var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s 			page 16
+
+
+ 469              		.loc 1 45 34 is_stmt 0 view .LVU139
+ 470 003c 4FF48053 		mov	r3, #4096
+ 471 0040 0A93     		str	r3, [sp, #40]
+  46:Core/Src/CommunicationProtocol/tim.c ****   {
+ 472              		.loc 1 46 3 is_stmt 1 view .LVU140
+  46:Core/Src/CommunicationProtocol/tim.c ****   {
+ 473              		.loc 1 46 7 is_stmt 0 view .LVU141
+ 474 0042 0AA9     		add	r1, sp, #40
+ 475 0044 1948     		ldr	r0, .L36
+ 476 0046 FFF7FEFF 		bl	HAL_TIM_ConfigClockSource
+ 477              	.LVL16:
+  46:Core/Src/CommunicationProtocol/tim.c ****   {
+ 478              		.loc 1 46 6 view .LVU142
+ 479 004a 18BB     		cbnz	r0, .L32
+ 480              	.L26:
+  50:Core/Src/CommunicationProtocol/tim.c ****   {
+ 481              		.loc 1 50 3 is_stmt 1 view .LVU143
+  50:Core/Src/CommunicationProtocol/tim.c ****   {
+ 482              		.loc 1 50 7 is_stmt 0 view .LVU144
+ 483 004c 1748     		ldr	r0, .L36
+ 484 004e FFF7FEFF 		bl	HAL_TIM_PWM_Init
+ 485              	.LVL17:
+  50:Core/Src/CommunicationProtocol/tim.c ****   {
+ 486              		.loc 1 50 6 view .LVU145
+ 487 0052 10BB     		cbnz	r0, .L33
+ 488              	.L27:
+  54:Core/Src/CommunicationProtocol/tim.c ****   sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+ 489              		.loc 1 54 3 is_stmt 1 view .LVU146
+  54:Core/Src/CommunicationProtocol/tim.c ****   sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+ 490              		.loc 1 54 37 is_stmt 0 view .LVU147
+ 491 0054 0023     		movs	r3, #0
+ 492 0056 0893     		str	r3, [sp, #32]
+  55:Core/Src/CommunicationProtocol/tim.c ****   if (HAL_TIMEx_MasterConfigSynchronization(&htim2, &sMasterConfig) != HAL_OK)
+ 493              		.loc 1 55 3 is_stmt 1 view .LVU148
+  55:Core/Src/CommunicationProtocol/tim.c ****   if (HAL_TIMEx_MasterConfigSynchronization(&htim2, &sMasterConfig) != HAL_OK)
+ 494              		.loc 1 55 33 is_stmt 0 view .LVU149
+ 495 0058 0993     		str	r3, [sp, #36]
+  56:Core/Src/CommunicationProtocol/tim.c ****   {
+ 496              		.loc 1 56 3 is_stmt 1 view .LVU150
+  56:Core/Src/CommunicationProtocol/tim.c ****   {
+ 497              		.loc 1 56 7 is_stmt 0 view .LVU151
+ 498 005a 08A9     		add	r1, sp, #32
+ 499 005c 1348     		ldr	r0, .L36
+ 500 005e FFF7FEFF 		bl	HAL_TIMEx_MasterConfigSynchronization
+ 501              	.LVL18:
+  56:Core/Src/CommunicationProtocol/tim.c ****   {
+ 502              		.loc 1 56 6 view .LVU152
+ 503 0062 E8B9     		cbnz	r0, .L34
+ 504              	.L28:
+  60:Core/Src/CommunicationProtocol/tim.c ****   sConfigOC.Pulse = 30000000;
+ 505              		.loc 1 60 3 is_stmt 1 view .LVU153
+  60:Core/Src/CommunicationProtocol/tim.c ****   sConfigOC.Pulse = 30000000;
+ 506              		.loc 1 60 20 is_stmt 0 view .LVU154
+ 507 0064 6023     		movs	r3, #96
+ 508 0066 0193     		str	r3, [sp, #4]
+  61:Core/Src/CommunicationProtocol/tim.c ****   sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
+ 509              		.loc 1 61 3 is_stmt 1 view .LVU155
+ARM GAS  /var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s 			page 17
+
+
+  61:Core/Src/CommunicationProtocol/tim.c ****   sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
+ 510              		.loc 1 61 19 is_stmt 0 view .LVU156
+ 511 0068 114B     		ldr	r3, .L36+4
+ 512 006a 0293     		str	r3, [sp, #8]
+  62:Core/Src/CommunicationProtocol/tim.c ****   sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
+ 513              		.loc 1 62 3 is_stmt 1 view .LVU157
+  62:Core/Src/CommunicationProtocol/tim.c ****   sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
+ 514              		.loc 1 62 24 is_stmt 0 view .LVU158
+ 515 006c 0022     		movs	r2, #0
+ 516 006e 0392     		str	r2, [sp, #12]
+  63:Core/Src/CommunicationProtocol/tim.c ****   if (HAL_TIM_PWM_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
+ 517              		.loc 1 63 3 is_stmt 1 view .LVU159
+  63:Core/Src/CommunicationProtocol/tim.c ****   if (HAL_TIM_PWM_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
+ 518              		.loc 1 63 24 is_stmt 0 view .LVU160
+ 519 0070 0592     		str	r2, [sp, #20]
+  64:Core/Src/CommunicationProtocol/tim.c ****   {
+ 520              		.loc 1 64 3 is_stmt 1 view .LVU161
+  64:Core/Src/CommunicationProtocol/tim.c ****   {
+ 521              		.loc 1 64 7 is_stmt 0 view .LVU162
+ 522 0072 01A9     		add	r1, sp, #4
+ 523 0074 0D48     		ldr	r0, .L36
+ 524 0076 FFF7FEFF 		bl	HAL_TIM_PWM_ConfigChannel
+ 525              	.LVL19:
+  64:Core/Src/CommunicationProtocol/tim.c ****   {
+ 526              		.loc 1 64 6 view .LVU163
+ 527 007a A0B9     		cbnz	r0, .L35
+ 528              	.L29:
+  68:Core/Src/CommunicationProtocol/tim.c ****   HAL_TIM_MspPostInit(&htim2);
+ 529              		.loc 1 68 3 is_stmt 1 view .LVU164
+ 530 007c 0B4C     		ldr	r4, .L36
+ 531 007e 2046     		mov	r0, r4
+ 532 0080 FFF7FEFF 		bl	HAL_TIM_Base_MspInit
+ 533              	.LVL20:
+  69:Core/Src/CommunicationProtocol/tim.c **** }
+ 534              		.loc 1 69 3 view .LVU165
+ 535 0084 2046     		mov	r0, r4
+ 536 0086 FFF7FEFF 		bl	HAL_TIM_MspPostInit
+ 537              	.LVL21:
+  70:Core/Src/CommunicationProtocol/tim.c **** 
+ 538              		.loc 1 70 1 is_stmt 0 view .LVU166
+ 539 008a 0EB0     		add	sp, sp, #56
+ 540              	.LCFI9:
+ 541              		.cfi_remember_state
+ 542              		.cfi_def_cfa_offset 8
+ 543              		@ sp needed
+ 544 008c 10BD     		pop	{r4, pc}
+ 545              	.L31:
+ 546              	.LCFI10:
+ 547              		.cfi_restore_state
+  43:Core/Src/CommunicationProtocol/tim.c ****   }
+ 548              		.loc 1 43 5 is_stmt 1 view .LVU167
+ 549 008e FFF7FEFF 		bl	Error_Handler
+ 550              	.LVL22:
+ 551 0092 D3E7     		b	.L25
+ 552              	.L32:
+  48:Core/Src/CommunicationProtocol/tim.c ****   }
+ 553              		.loc 1 48 5 view .LVU168
+ARM GAS  /var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s 			page 18
+
+
+ 554 0094 FFF7FEFF 		bl	Error_Handler
+ 555              	.LVL23:
+ 556 0098 D8E7     		b	.L26
+ 557              	.L33:
+  52:Core/Src/CommunicationProtocol/tim.c ****   }
+ 558              		.loc 1 52 5 view .LVU169
+ 559 009a FFF7FEFF 		bl	Error_Handler
+ 560              	.LVL24:
+ 561 009e D9E7     		b	.L27
+ 562              	.L34:
+  58:Core/Src/CommunicationProtocol/tim.c ****   }
+ 563              		.loc 1 58 5 view .LVU170
+ 564 00a0 FFF7FEFF 		bl	Error_Handler
+ 565              	.LVL25:
+ 566 00a4 DEE7     		b	.L28
+ 567              	.L35:
+  66:Core/Src/CommunicationProtocol/tim.c ****   }
+ 568              		.loc 1 66 5 view .LVU171
+ 569 00a6 FFF7FEFF 		bl	Error_Handler
+ 570              	.LVL26:
+ 571 00aa E7E7     		b	.L29
+ 572              	.L37:
+ 573              		.align	2
+ 574              	.L36:
+ 575 00ac 00000000 		.word	.LANCHOR0
+ 576 00b0 80C3C901 		.word	30000000
+ 577              		.cfi_endproc
+ 578              	.LFE134:
+ 580              		.section	.text.MX_TIM3_Init,"ax",%progbits
+ 581              		.align	1
+ 582              		.global	MX_TIM3_Init
+ 583              		.syntax unified
+ 584              		.thumb
+ 585              		.thumb_func
+ 587              	MX_TIM3_Init:
+ 588              	.LFB135:
+  74:Core/Src/CommunicationProtocol/tim.c ****   TIM_ClockConfigTypeDef sClockSourceConfig = {0};
+ 589              		.loc 1 74 1 view -0
+ 590              		.cfi_startproc
+ 591              		@ args = 0, pretend = 0, frame = 56
+ 592              		@ frame_needed = 0, uses_anonymous_args = 0
+ 593 0000 10B5     		push	{r4, lr}
+ 594              	.LCFI11:
+ 595              		.cfi_def_cfa_offset 8
+ 596              		.cfi_offset 4, -8
+ 597              		.cfi_offset 14, -4
+ 598 0002 8EB0     		sub	sp, sp, #56
+ 599              	.LCFI12:
+ 600              		.cfi_def_cfa_offset 64
+  75:Core/Src/CommunicationProtocol/tim.c ****   TIM_MasterConfigTypeDef sMasterConfig = {0};
+ 601              		.loc 1 75 3 view .LVU173
+  75:Core/Src/CommunicationProtocol/tim.c ****   TIM_MasterConfigTypeDef sMasterConfig = {0};
+ 602              		.loc 1 75 26 is_stmt 0 view .LVU174
+ 603 0004 0023     		movs	r3, #0
+ 604 0006 0A93     		str	r3, [sp, #40]
+ 605 0008 0B93     		str	r3, [sp, #44]
+ 606 000a 0C93     		str	r3, [sp, #48]
+ARM GAS  /var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s 			page 19
+
+
+ 607 000c 0D93     		str	r3, [sp, #52]
+  76:Core/Src/CommunicationProtocol/tim.c ****   TIM_OC_InitTypeDef sConfigOC = {0};
+ 608              		.loc 1 76 3 is_stmt 1 view .LVU175
+  76:Core/Src/CommunicationProtocol/tim.c ****   TIM_OC_InitTypeDef sConfigOC = {0};
+ 609              		.loc 1 76 27 is_stmt 0 view .LVU176
+ 610 000e 0893     		str	r3, [sp, #32]
+ 611 0010 0993     		str	r3, [sp, #36]
+  77:Core/Src/CommunicationProtocol/tim.c **** 
+ 612              		.loc 1 77 3 is_stmt 1 view .LVU177
+  77:Core/Src/CommunicationProtocol/tim.c **** 
+ 613              		.loc 1 77 22 is_stmt 0 view .LVU178
+ 614 0012 0193     		str	r3, [sp, #4]
+ 615 0014 0293     		str	r3, [sp, #8]
+ 616 0016 0393     		str	r3, [sp, #12]
+ 617 0018 0493     		str	r3, [sp, #16]
+ 618 001a 0593     		str	r3, [sp, #20]
+ 619 001c 0693     		str	r3, [sp, #24]
+ 620 001e 0793     		str	r3, [sp, #28]
+  79:Core/Src/CommunicationProtocol/tim.c ****   htim3.Init.Prescaler = 0;
+ 621              		.loc 1 79 3 is_stmt 1 view .LVU179
+  79:Core/Src/CommunicationProtocol/tim.c ****   htim3.Init.Prescaler = 0;
+ 622              		.loc 1 79 18 is_stmt 0 view .LVU180
+ 623 0020 2148     		ldr	r0, .L50
+ 624 0022 224A     		ldr	r2, .L50+4
+ 625 0024 0260     		str	r2, [r0]
+  80:Core/Src/CommunicationProtocol/tim.c ****   htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
+ 626              		.loc 1 80 3 is_stmt 1 view .LVU181
+  80:Core/Src/CommunicationProtocol/tim.c ****   htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
+ 627              		.loc 1 80 24 is_stmt 0 view .LVU182
+ 628 0026 4360     		str	r3, [r0, #4]
+  81:Core/Src/CommunicationProtocol/tim.c ****   htim3.Init.Period = 65535;
+ 629              		.loc 1 81 3 is_stmt 1 view .LVU183
+  81:Core/Src/CommunicationProtocol/tim.c ****   htim3.Init.Period = 65535;
+ 630              		.loc 1 81 26 is_stmt 0 view .LVU184
+ 631 0028 8360     		str	r3, [r0, #8]
+  82:Core/Src/CommunicationProtocol/tim.c ****   htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+ 632              		.loc 1 82 3 is_stmt 1 view .LVU185
+  82:Core/Src/CommunicationProtocol/tim.c ****   htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+ 633              		.loc 1 82 21 is_stmt 0 view .LVU186
+ 634 002a 4FF6FF72 		movw	r2, #65535
+ 635 002e C260     		str	r2, [r0, #12]
+  83:Core/Src/CommunicationProtocol/tim.c ****   htim3.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+ 636              		.loc 1 83 3 is_stmt 1 view .LVU187
+  83:Core/Src/CommunicationProtocol/tim.c ****   htim3.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+ 637              		.loc 1 83 28 is_stmt 0 view .LVU188
+ 638 0030 0361     		str	r3, [r0, #16]
+  84:Core/Src/CommunicationProtocol/tim.c ****   if (HAL_TIM_Base_Init(&htim3) != HAL_OK)
+ 639              		.loc 1 84 3 is_stmt 1 view .LVU189
+  84:Core/Src/CommunicationProtocol/tim.c ****   if (HAL_TIM_Base_Init(&htim3) != HAL_OK)
+ 640              		.loc 1 84 32 is_stmt 0 view .LVU190
+ 641 0032 8361     		str	r3, [r0, #24]
+  85:Core/Src/CommunicationProtocol/tim.c ****   {
+ 642              		.loc 1 85 3 is_stmt 1 view .LVU191
+  85:Core/Src/CommunicationProtocol/tim.c ****   {
+ 643              		.loc 1 85 7 is_stmt 0 view .LVU192
+ 644 0034 FFF7FEFF 		bl	HAL_TIM_Base_Init
+ 645              	.LVL27:
+ARM GAS  /var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s 			page 20
+
+
+  85:Core/Src/CommunicationProtocol/tim.c ****   {
+ 646              		.loc 1 85 6 view .LVU193
+ 647 0038 38BB     		cbnz	r0, .L45
+ 648              	.L39:
+  89:Core/Src/CommunicationProtocol/tim.c ****   if (HAL_TIM_ConfigClockSource(&htim3, &sClockSourceConfig) != HAL_OK)
+ 649              		.loc 1 89 3 is_stmt 1 view .LVU194
+  89:Core/Src/CommunicationProtocol/tim.c ****   if (HAL_TIM_ConfigClockSource(&htim3, &sClockSourceConfig) != HAL_OK)
+ 650              		.loc 1 89 34 is_stmt 0 view .LVU195
+ 651 003a 4FF48053 		mov	r3, #4096
+ 652 003e 0A93     		str	r3, [sp, #40]
+  90:Core/Src/CommunicationProtocol/tim.c ****   {
+ 653              		.loc 1 90 3 is_stmt 1 view .LVU196
+  90:Core/Src/CommunicationProtocol/tim.c ****   {
+ 654              		.loc 1 90 7 is_stmt 0 view .LVU197
+ 655 0040 0AA9     		add	r1, sp, #40
+ 656 0042 1948     		ldr	r0, .L50
+ 657 0044 FFF7FEFF 		bl	HAL_TIM_ConfigClockSource
+ 658              	.LVL28:
+  90:Core/Src/CommunicationProtocol/tim.c ****   {
+ 659              		.loc 1 90 6 view .LVU198
+ 660 0048 10BB     		cbnz	r0, .L46
+ 661              	.L40:
+  94:Core/Src/CommunicationProtocol/tim.c ****   {
+ 662              		.loc 1 94 3 is_stmt 1 view .LVU199
+  94:Core/Src/CommunicationProtocol/tim.c ****   {
+ 663              		.loc 1 94 7 is_stmt 0 view .LVU200
+ 664 004a 1748     		ldr	r0, .L50
+ 665 004c FFF7FEFF 		bl	HAL_TIM_PWM_Init
+ 666              	.LVL29:
+  94:Core/Src/CommunicationProtocol/tim.c ****   {
+ 667              		.loc 1 94 6 view .LVU201
+ 668 0050 08BB     		cbnz	r0, .L47
+ 669              	.L41:
+  98:Core/Src/CommunicationProtocol/tim.c ****   sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+ 670              		.loc 1 98 3 is_stmt 1 view .LVU202
+  98:Core/Src/CommunicationProtocol/tim.c ****   sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+ 671              		.loc 1 98 37 is_stmt 0 view .LVU203
+ 672 0052 0023     		movs	r3, #0
+ 673 0054 0893     		str	r3, [sp, #32]
+  99:Core/Src/CommunicationProtocol/tim.c ****   if (HAL_TIMEx_MasterConfigSynchronization(&htim3, &sMasterConfig) != HAL_OK)
+ 674              		.loc 1 99 3 is_stmt 1 view .LVU204
+  99:Core/Src/CommunicationProtocol/tim.c ****   if (HAL_TIMEx_MasterConfigSynchronization(&htim3, &sMasterConfig) != HAL_OK)
+ 675              		.loc 1 99 33 is_stmt 0 view .LVU205
+ 676 0056 0993     		str	r3, [sp, #36]
+ 100:Core/Src/CommunicationProtocol/tim.c ****   {
+ 677              		.loc 1 100 3 is_stmt 1 view .LVU206
+ 100:Core/Src/CommunicationProtocol/tim.c ****   {
+ 678              		.loc 1 100 7 is_stmt 0 view .LVU207
+ 679 0058 08A9     		add	r1, sp, #32
+ 680 005a 1348     		ldr	r0, .L50
+ 681 005c FFF7FEFF 		bl	HAL_TIMEx_MasterConfigSynchronization
+ 682              	.LVL30:
+ 100:Core/Src/CommunicationProtocol/tim.c ****   {
+ 683              		.loc 1 100 6 view .LVU208
+ 684 0060 E0B9     		cbnz	r0, .L48
+ 685              	.L42:
+ 104:Core/Src/CommunicationProtocol/tim.c ****   sConfigOC.Pulse = 0;
+ARM GAS  /var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s 			page 21
+
+
+ 686              		.loc 1 104 3 is_stmt 1 view .LVU209
+ 104:Core/Src/CommunicationProtocol/tim.c ****   sConfigOC.Pulse = 0;
+ 687              		.loc 1 104 20 is_stmt 0 view .LVU210
+ 688 0062 6023     		movs	r3, #96
+ 689 0064 0193     		str	r3, [sp, #4]
+ 105:Core/Src/CommunicationProtocol/tim.c ****   sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
+ 690              		.loc 1 105 3 is_stmt 1 view .LVU211
+ 105:Core/Src/CommunicationProtocol/tim.c ****   sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
+ 691              		.loc 1 105 19 is_stmt 0 view .LVU212
+ 692 0066 0022     		movs	r2, #0
+ 693 0068 0292     		str	r2, [sp, #8]
+ 106:Core/Src/CommunicationProtocol/tim.c ****   sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
+ 694              		.loc 1 106 3 is_stmt 1 view .LVU213
+ 106:Core/Src/CommunicationProtocol/tim.c ****   sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
+ 695              		.loc 1 106 24 is_stmt 0 view .LVU214
+ 696 006a 0392     		str	r2, [sp, #12]
+ 107:Core/Src/CommunicationProtocol/tim.c ****   if (HAL_TIM_PWM_ConfigChannel(&htim3, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
+ 697              		.loc 1 107 3 is_stmt 1 view .LVU215
+ 107:Core/Src/CommunicationProtocol/tim.c ****   if (HAL_TIM_PWM_ConfigChannel(&htim3, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
+ 698              		.loc 1 107 24 is_stmt 0 view .LVU216
+ 699 006c 0592     		str	r2, [sp, #20]
+ 108:Core/Src/CommunicationProtocol/tim.c ****   {
+ 700              		.loc 1 108 3 is_stmt 1 view .LVU217
+ 108:Core/Src/CommunicationProtocol/tim.c ****   {
+ 701              		.loc 1 108 7 is_stmt 0 view .LVU218
+ 702 006e 01A9     		add	r1, sp, #4
+ 703 0070 0D48     		ldr	r0, .L50
+ 704 0072 FFF7FEFF 		bl	HAL_TIM_PWM_ConfigChannel
+ 705              	.LVL31:
+ 108:Core/Src/CommunicationProtocol/tim.c ****   {
+ 706              		.loc 1 108 6 view .LVU219
+ 707 0076 A0B9     		cbnz	r0, .L49
+ 708              	.L43:
+ 113:Core/Src/CommunicationProtocol/tim.c ****   HAL_TIM_MspPostInit(&htim3);
+ 709              		.loc 1 113 3 is_stmt 1 view .LVU220
+ 710 0078 0B4C     		ldr	r4, .L50
+ 711 007a 2046     		mov	r0, r4
+ 712 007c FFF7FEFF 		bl	HAL_TIM_Base_MspInit
+ 713              	.LVL32:
+ 114:Core/Src/CommunicationProtocol/tim.c **** }
+ 714              		.loc 1 114 3 view .LVU221
+ 715 0080 2046     		mov	r0, r4
+ 716 0082 FFF7FEFF 		bl	HAL_TIM_MspPostInit
+ 717              	.LVL33:
+ 115:Core/Src/CommunicationProtocol/tim.c **** 
+ 718              		.loc 1 115 1 is_stmt 0 view .LVU222
+ 719 0086 0EB0     		add	sp, sp, #56
+ 720              	.LCFI13:
+ 721              		.cfi_remember_state
+ 722              		.cfi_def_cfa_offset 8
+ 723              		@ sp needed
+ 724 0088 10BD     		pop	{r4, pc}
+ 725              	.L45:
+ 726              	.LCFI14:
+ 727              		.cfi_restore_state
+  87:Core/Src/CommunicationProtocol/tim.c ****   }
+ 728              		.loc 1 87 5 is_stmt 1 view .LVU223
+ARM GAS  /var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s 			page 22
+
+
+ 729 008a FFF7FEFF 		bl	Error_Handler
+ 730              	.LVL34:
+ 731 008e D4E7     		b	.L39
+ 732              	.L46:
+  92:Core/Src/CommunicationProtocol/tim.c ****   }
+ 733              		.loc 1 92 5 view .LVU224
+ 734 0090 FFF7FEFF 		bl	Error_Handler
+ 735              	.LVL35:
+ 736 0094 D9E7     		b	.L40
+ 737              	.L47:
+  96:Core/Src/CommunicationProtocol/tim.c ****   }
+ 738              		.loc 1 96 5 view .LVU225
+ 739 0096 FFF7FEFF 		bl	Error_Handler
+ 740              	.LVL36:
+ 741 009a DAE7     		b	.L41
+ 742              	.L48:
+ 102:Core/Src/CommunicationProtocol/tim.c ****   }
+ 743              		.loc 1 102 5 view .LVU226
+ 744 009c FFF7FEFF 		bl	Error_Handler
+ 745              	.LVL37:
+ 746 00a0 DFE7     		b	.L42
+ 747              	.L49:
+ 110:Core/Src/CommunicationProtocol/tim.c ****   }
+ 748              		.loc 1 110 5 view .LVU227
+ 749 00a2 FFF7FEFF 		bl	Error_Handler
+ 750              	.LVL38:
+ 751 00a6 E7E7     		b	.L43
+ 752              	.L51:
+ 753              		.align	2
+ 754              	.L50:
+ 755 00a8 00000000 		.word	.LANCHOR1
+ 756 00ac 00040040 		.word	1073742848
+ 757              		.cfi_endproc
+ 758              	.LFE135:
+ 760              		.section	.text.MX_TIM4_Init,"ax",%progbits
+ 761              		.align	1
+ 762              		.global	MX_TIM4_Init
+ 763              		.syntax unified
+ 764              		.thumb
+ 765              		.thumb_func
+ 767              	MX_TIM4_Init:
+ 768              	.LFB136:
+ 119:Core/Src/CommunicationProtocol/tim.c ****   TIM_ClockConfigTypeDef sClockSourceConfig = {0};
+ 769              		.loc 1 119 1 view -0
+ 770              		.cfi_startproc
+ 771              		@ args = 0, pretend = 0, frame = 56
+ 772              		@ frame_needed = 0, uses_anonymous_args = 0
+ 773 0000 10B5     		push	{r4, lr}
+ 774              	.LCFI15:
+ 775              		.cfi_def_cfa_offset 8
+ 776              		.cfi_offset 4, -8
+ 777              		.cfi_offset 14, -4
+ 778 0002 8EB0     		sub	sp, sp, #56
+ 779              	.LCFI16:
+ 780              		.cfi_def_cfa_offset 64
+ 120:Core/Src/CommunicationProtocol/tim.c ****   TIM_MasterConfigTypeDef sMasterConfig = {0};
+ 781              		.loc 1 120 3 view .LVU229
+ARM GAS  /var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s 			page 23
+
+
+ 120:Core/Src/CommunicationProtocol/tim.c ****   TIM_MasterConfigTypeDef sMasterConfig = {0};
+ 782              		.loc 1 120 26 is_stmt 0 view .LVU230
+ 783 0004 0023     		movs	r3, #0
+ 784 0006 0A93     		str	r3, [sp, #40]
+ 785 0008 0B93     		str	r3, [sp, #44]
+ 786 000a 0C93     		str	r3, [sp, #48]
+ 787 000c 0D93     		str	r3, [sp, #52]
+ 121:Core/Src/CommunicationProtocol/tim.c ****   TIM_OC_InitTypeDef sConfigOC = {0};
+ 788              		.loc 1 121 3 is_stmt 1 view .LVU231
+ 121:Core/Src/CommunicationProtocol/tim.c ****   TIM_OC_InitTypeDef sConfigOC = {0};
+ 789              		.loc 1 121 27 is_stmt 0 view .LVU232
+ 790 000e 0893     		str	r3, [sp, #32]
+ 791 0010 0993     		str	r3, [sp, #36]
+ 122:Core/Src/CommunicationProtocol/tim.c **** 
+ 792              		.loc 1 122 3 is_stmt 1 view .LVU233
+ 122:Core/Src/CommunicationProtocol/tim.c **** 
+ 793              		.loc 1 122 22 is_stmt 0 view .LVU234
+ 794 0012 0193     		str	r3, [sp, #4]
+ 795 0014 0293     		str	r3, [sp, #8]
+ 796 0016 0393     		str	r3, [sp, #12]
+ 797 0018 0493     		str	r3, [sp, #16]
+ 798 001a 0593     		str	r3, [sp, #20]
+ 799 001c 0693     		str	r3, [sp, #24]
+ 800 001e 0793     		str	r3, [sp, #28]
+ 124:Core/Src/CommunicationProtocol/tim.c ****   htim4.Init.Prescaler = 0;
+ 801              		.loc 1 124 3 is_stmt 1 view .LVU235
+ 124:Core/Src/CommunicationProtocol/tim.c ****   htim4.Init.Prescaler = 0;
+ 802              		.loc 1 124 18 is_stmt 0 view .LVU236
+ 803 0020 2148     		ldr	r0, .L64
+ 804 0022 224A     		ldr	r2, .L64+4
+ 805 0024 0260     		str	r2, [r0]
+ 125:Core/Src/CommunicationProtocol/tim.c ****   htim4.Init.CounterMode = TIM_COUNTERMODE_UP;
+ 806              		.loc 1 125 3 is_stmt 1 view .LVU237
+ 125:Core/Src/CommunicationProtocol/tim.c ****   htim4.Init.CounterMode = TIM_COUNTERMODE_UP;
+ 807              		.loc 1 125 24 is_stmt 0 view .LVU238
+ 808 0026 4360     		str	r3, [r0, #4]
+ 126:Core/Src/CommunicationProtocol/tim.c ****   htim4.Init.Period = 65535;
+ 809              		.loc 1 126 3 is_stmt 1 view .LVU239
+ 126:Core/Src/CommunicationProtocol/tim.c ****   htim4.Init.Period = 65535;
+ 810              		.loc 1 126 26 is_stmt 0 view .LVU240
+ 811 0028 8360     		str	r3, [r0, #8]
+ 127:Core/Src/CommunicationProtocol/tim.c ****   htim4.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+ 812              		.loc 1 127 3 is_stmt 1 view .LVU241
+ 127:Core/Src/CommunicationProtocol/tim.c ****   htim4.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+ 813              		.loc 1 127 21 is_stmt 0 view .LVU242
+ 814 002a 4FF6FF72 		movw	r2, #65535
+ 815 002e C260     		str	r2, [r0, #12]
+ 128:Core/Src/CommunicationProtocol/tim.c ****   htim4.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+ 816              		.loc 1 128 3 is_stmt 1 view .LVU243
+ 128:Core/Src/CommunicationProtocol/tim.c ****   htim4.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+ 817              		.loc 1 128 28 is_stmt 0 view .LVU244
+ 818 0030 0361     		str	r3, [r0, #16]
+ 129:Core/Src/CommunicationProtocol/tim.c ****   if (HAL_TIM_Base_Init(&htim4) != HAL_OK)
+ 819              		.loc 1 129 3 is_stmt 1 view .LVU245
+ 129:Core/Src/CommunicationProtocol/tim.c ****   if (HAL_TIM_Base_Init(&htim4) != HAL_OK)
+ 820              		.loc 1 129 32 is_stmt 0 view .LVU246
+ 821 0032 8361     		str	r3, [r0, #24]
+ARM GAS  /var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s 			page 24
+
+
+ 130:Core/Src/CommunicationProtocol/tim.c ****   {
+ 822              		.loc 1 130 3 is_stmt 1 view .LVU247
+ 130:Core/Src/CommunicationProtocol/tim.c ****   {
+ 823              		.loc 1 130 7 is_stmt 0 view .LVU248
+ 824 0034 FFF7FEFF 		bl	HAL_TIM_Base_Init
+ 825              	.LVL39:
+ 130:Core/Src/CommunicationProtocol/tim.c ****   {
+ 826              		.loc 1 130 6 view .LVU249
+ 827 0038 38BB     		cbnz	r0, .L59
+ 828              	.L53:
+ 134:Core/Src/CommunicationProtocol/tim.c ****   if (HAL_TIM_ConfigClockSource(&htim4, &sClockSourceConfig) != HAL_OK)
+ 829              		.loc 1 134 3 is_stmt 1 view .LVU250
+ 134:Core/Src/CommunicationProtocol/tim.c ****   if (HAL_TIM_ConfigClockSource(&htim4, &sClockSourceConfig) != HAL_OK)
+ 830              		.loc 1 134 34 is_stmt 0 view .LVU251
+ 831 003a 4FF48053 		mov	r3, #4096
+ 832 003e 0A93     		str	r3, [sp, #40]
+ 135:Core/Src/CommunicationProtocol/tim.c ****   {
+ 833              		.loc 1 135 3 is_stmt 1 view .LVU252
+ 135:Core/Src/CommunicationProtocol/tim.c ****   {
+ 834              		.loc 1 135 7 is_stmt 0 view .LVU253
+ 835 0040 0AA9     		add	r1, sp, #40
+ 836 0042 1948     		ldr	r0, .L64
+ 837 0044 FFF7FEFF 		bl	HAL_TIM_ConfigClockSource
+ 838              	.LVL40:
+ 135:Core/Src/CommunicationProtocol/tim.c ****   {
+ 839              		.loc 1 135 6 view .LVU254
+ 840 0048 10BB     		cbnz	r0, .L60
+ 841              	.L54:
+ 139:Core/Src/CommunicationProtocol/tim.c ****   {
+ 842              		.loc 1 139 3 is_stmt 1 view .LVU255
+ 139:Core/Src/CommunicationProtocol/tim.c ****   {
+ 843              		.loc 1 139 7 is_stmt 0 view .LVU256
+ 844 004a 1748     		ldr	r0, .L64
+ 845 004c FFF7FEFF 		bl	HAL_TIM_PWM_Init
+ 846              	.LVL41:
+ 139:Core/Src/CommunicationProtocol/tim.c ****   {
+ 847              		.loc 1 139 6 view .LVU257
+ 848 0050 08BB     		cbnz	r0, .L61
+ 849              	.L55:
+ 143:Core/Src/CommunicationProtocol/tim.c ****   sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+ 850              		.loc 1 143 3 is_stmt 1 view .LVU258
+ 143:Core/Src/CommunicationProtocol/tim.c ****   sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+ 851              		.loc 1 143 37 is_stmt 0 view .LVU259
+ 852 0052 0023     		movs	r3, #0
+ 853 0054 0893     		str	r3, [sp, #32]
+ 144:Core/Src/CommunicationProtocol/tim.c ****   if (HAL_TIMEx_MasterConfigSynchronization(&htim4, &sMasterConfig) != HAL_OK)
+ 854              		.loc 1 144 3 is_stmt 1 view .LVU260
+ 144:Core/Src/CommunicationProtocol/tim.c ****   if (HAL_TIMEx_MasterConfigSynchronization(&htim4, &sMasterConfig) != HAL_OK)
+ 855              		.loc 1 144 33 is_stmt 0 view .LVU261
+ 856 0056 0993     		str	r3, [sp, #36]
+ 145:Core/Src/CommunicationProtocol/tim.c ****   {
+ 857              		.loc 1 145 3 is_stmt 1 view .LVU262
+ 145:Core/Src/CommunicationProtocol/tim.c ****   {
+ 858              		.loc 1 145 7 is_stmt 0 view .LVU263
+ 859 0058 08A9     		add	r1, sp, #32
+ 860 005a 1348     		ldr	r0, .L64
+ 861 005c FFF7FEFF 		bl	HAL_TIMEx_MasterConfigSynchronization
+ARM GAS  /var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s 			page 25
+
+
+ 862              	.LVL42:
+ 145:Core/Src/CommunicationProtocol/tim.c ****   {
+ 863              		.loc 1 145 6 view .LVU264
+ 864 0060 E0B9     		cbnz	r0, .L62
+ 865              	.L56:
+ 149:Core/Src/CommunicationProtocol/tim.c ****   sConfigOC.Pulse = 0;
+ 866              		.loc 1 149 3 is_stmt 1 view .LVU265
+ 149:Core/Src/CommunicationProtocol/tim.c ****   sConfigOC.Pulse = 0;
+ 867              		.loc 1 149 20 is_stmt 0 view .LVU266
+ 868 0062 6023     		movs	r3, #96
+ 869 0064 0193     		str	r3, [sp, #4]
+ 150:Core/Src/CommunicationProtocol/tim.c ****   sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
+ 870              		.loc 1 150 3 is_stmt 1 view .LVU267
+ 150:Core/Src/CommunicationProtocol/tim.c ****   sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
+ 871              		.loc 1 150 19 is_stmt 0 view .LVU268
+ 872 0066 0022     		movs	r2, #0
+ 873 0068 0292     		str	r2, [sp, #8]
+ 151:Core/Src/CommunicationProtocol/tim.c ****   sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
+ 874              		.loc 1 151 3 is_stmt 1 view .LVU269
+ 151:Core/Src/CommunicationProtocol/tim.c ****   sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
+ 875              		.loc 1 151 24 is_stmt 0 view .LVU270
+ 876 006a 0392     		str	r2, [sp, #12]
+ 152:Core/Src/CommunicationProtocol/tim.c ****   if (HAL_TIM_PWM_ConfigChannel(&htim4, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
+ 877              		.loc 1 152 3 is_stmt 1 view .LVU271
+ 152:Core/Src/CommunicationProtocol/tim.c ****   if (HAL_TIM_PWM_ConfigChannel(&htim4, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
+ 878              		.loc 1 152 24 is_stmt 0 view .LVU272
+ 879 006c 0592     		str	r2, [sp, #20]
+ 153:Core/Src/CommunicationProtocol/tim.c ****   {
+ 880              		.loc 1 153 3 is_stmt 1 view .LVU273
+ 153:Core/Src/CommunicationProtocol/tim.c ****   {
+ 881              		.loc 1 153 7 is_stmt 0 view .LVU274
+ 882 006e 01A9     		add	r1, sp, #4
+ 883 0070 0D48     		ldr	r0, .L64
+ 884 0072 FFF7FEFF 		bl	HAL_TIM_PWM_ConfigChannel
+ 885              	.LVL43:
+ 153:Core/Src/CommunicationProtocol/tim.c ****   {
+ 886              		.loc 1 153 6 view .LVU275
+ 887 0076 A0B9     		cbnz	r0, .L63
+ 888              	.L57:
+ 157:Core/Src/CommunicationProtocol/tim.c ****   HAL_TIM_MspPostInit(&htim4);
+ 889              		.loc 1 157 3 is_stmt 1 view .LVU276
+ 890 0078 0B4C     		ldr	r4, .L64
+ 891 007a 2046     		mov	r0, r4
+ 892 007c FFF7FEFF 		bl	HAL_TIM_Base_MspInit
+ 893              	.LVL44:
+ 158:Core/Src/CommunicationProtocol/tim.c **** }
+ 894              		.loc 1 158 3 view .LVU277
+ 895 0080 2046     		mov	r0, r4
+ 896 0082 FFF7FEFF 		bl	HAL_TIM_MspPostInit
+ 897              	.LVL45:
+ 159:Core/Src/CommunicationProtocol/tim.c **** 
+ 898              		.loc 1 159 1 is_stmt 0 view .LVU278
+ 899 0086 0EB0     		add	sp, sp, #56
+ 900              	.LCFI17:
+ 901              		.cfi_remember_state
+ 902              		.cfi_def_cfa_offset 8
+ 903              		@ sp needed
+ARM GAS  /var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s 			page 26
+
+
+ 904 0088 10BD     		pop	{r4, pc}
+ 905              	.L59:
+ 906              	.LCFI18:
+ 907              		.cfi_restore_state
+ 132:Core/Src/CommunicationProtocol/tim.c ****   }
+ 908              		.loc 1 132 5 is_stmt 1 view .LVU279
+ 909 008a FFF7FEFF 		bl	Error_Handler
+ 910              	.LVL46:
+ 911 008e D4E7     		b	.L53
+ 912              	.L60:
+ 137:Core/Src/CommunicationProtocol/tim.c ****   }
+ 913              		.loc 1 137 5 view .LVU280
+ 914 0090 FFF7FEFF 		bl	Error_Handler
+ 915              	.LVL47:
+ 916 0094 D9E7     		b	.L54
+ 917              	.L61:
+ 141:Core/Src/CommunicationProtocol/tim.c ****   }
+ 918              		.loc 1 141 5 view .LVU281
+ 919 0096 FFF7FEFF 		bl	Error_Handler
+ 920              	.LVL48:
+ 921 009a DAE7     		b	.L55
+ 922              	.L62:
+ 147:Core/Src/CommunicationProtocol/tim.c ****   }
+ 923              		.loc 1 147 5 view .LVU282
+ 924 009c FFF7FEFF 		bl	Error_Handler
+ 925              	.LVL49:
+ 926 00a0 DFE7     		b	.L56
+ 927              	.L63:
+ 155:Core/Src/CommunicationProtocol/tim.c ****   }
+ 928              		.loc 1 155 5 view .LVU283
+ 929 00a2 FFF7FEFF 		bl	Error_Handler
+ 930              	.LVL50:
+ 931 00a6 E7E7     		b	.L57
+ 932              	.L65:
+ 933              		.align	2
+ 934              	.L64:
+ 935 00a8 00000000 		.word	.LANCHOR2
+ 936 00ac 00080040 		.word	1073743872
+ 937              		.cfi_endproc
+ 938              	.LFE136:
+ 940              		.section	.text.MX_TIM5_Init,"ax",%progbits
+ 941              		.align	1
+ 942              		.global	MX_TIM5_Init
+ 943              		.syntax unified
+ 944              		.thumb
+ 945              		.thumb_func
+ 947              	MX_TIM5_Init:
+ 948              	.LFB137:
+ 163:Core/Src/CommunicationProtocol/tim.c ****   TIM_ClockConfigTypeDef sClockSourceConfig = {0};
+ 949              		.loc 1 163 1 view -0
+ 950              		.cfi_startproc
+ 951              		@ args = 0, pretend = 0, frame = 56
+ 952              		@ frame_needed = 0, uses_anonymous_args = 0
+ 953 0000 10B5     		push	{r4, lr}
+ 954              	.LCFI19:
+ 955              		.cfi_def_cfa_offset 8
+ 956              		.cfi_offset 4, -8
+ARM GAS  /var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s 			page 27
+
+
+ 957              		.cfi_offset 14, -4
+ 958 0002 8EB0     		sub	sp, sp, #56
+ 959              	.LCFI20:
+ 960              		.cfi_def_cfa_offset 64
+ 164:Core/Src/CommunicationProtocol/tim.c ****   TIM_MasterConfigTypeDef sMasterConfig = {0};
+ 961              		.loc 1 164 3 view .LVU285
+ 164:Core/Src/CommunicationProtocol/tim.c ****   TIM_MasterConfigTypeDef sMasterConfig = {0};
+ 962              		.loc 1 164 26 is_stmt 0 view .LVU286
+ 963 0004 0023     		movs	r3, #0
+ 964 0006 0A93     		str	r3, [sp, #40]
+ 965 0008 0B93     		str	r3, [sp, #44]
+ 966 000a 0C93     		str	r3, [sp, #48]
+ 967 000c 0D93     		str	r3, [sp, #52]
+ 165:Core/Src/CommunicationProtocol/tim.c ****   TIM_OC_InitTypeDef sConfigOC = {0};
+ 968              		.loc 1 165 3 is_stmt 1 view .LVU287
+ 165:Core/Src/CommunicationProtocol/tim.c ****   TIM_OC_InitTypeDef sConfigOC = {0};
+ 969              		.loc 1 165 27 is_stmt 0 view .LVU288
+ 970 000e 0893     		str	r3, [sp, #32]
+ 971 0010 0993     		str	r3, [sp, #36]
+ 166:Core/Src/CommunicationProtocol/tim.c **** 
+ 972              		.loc 1 166 3 is_stmt 1 view .LVU289
+ 166:Core/Src/CommunicationProtocol/tim.c **** 
+ 973              		.loc 1 166 22 is_stmt 0 view .LVU290
+ 974 0012 0193     		str	r3, [sp, #4]
+ 975 0014 0293     		str	r3, [sp, #8]
+ 976 0016 0393     		str	r3, [sp, #12]
+ 977 0018 0493     		str	r3, [sp, #16]
+ 978 001a 0593     		str	r3, [sp, #20]
+ 979 001c 0693     		str	r3, [sp, #24]
+ 980 001e 0793     		str	r3, [sp, #28]
+ 168:Core/Src/CommunicationProtocol/tim.c ****   htim5.Init.Prescaler = 0;
+ 981              		.loc 1 168 3 is_stmt 1 view .LVU291
+ 168:Core/Src/CommunicationProtocol/tim.c ****   htim5.Init.Prescaler = 0;
+ 982              		.loc 1 168 18 is_stmt 0 view .LVU292
+ 983 0020 2248     		ldr	r0, .L78
+ 984 0022 234A     		ldr	r2, .L78+4
+ 985 0024 0260     		str	r2, [r0]
+ 169:Core/Src/CommunicationProtocol/tim.c ****   htim5.Init.CounterMode = TIM_COUNTERMODE_UP;
+ 986              		.loc 1 169 3 is_stmt 1 view .LVU293
+ 169:Core/Src/CommunicationProtocol/tim.c ****   htim5.Init.CounterMode = TIM_COUNTERMODE_UP;
+ 987              		.loc 1 169 24 is_stmt 0 view .LVU294
+ 988 0026 4360     		str	r3, [r0, #4]
+ 170:Core/Src/CommunicationProtocol/tim.c ****   htim5.Init.Period = 4294967295;
+ 989              		.loc 1 170 3 is_stmt 1 view .LVU295
+ 170:Core/Src/CommunicationProtocol/tim.c ****   htim5.Init.Period = 4294967295;
+ 990              		.loc 1 170 26 is_stmt 0 view .LVU296
+ 991 0028 8360     		str	r3, [r0, #8]
+ 171:Core/Src/CommunicationProtocol/tim.c ****   htim5.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+ 992              		.loc 1 171 3 is_stmt 1 view .LVU297
+ 171:Core/Src/CommunicationProtocol/tim.c ****   htim5.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+ 993              		.loc 1 171 21 is_stmt 0 view .LVU298
+ 994 002a 4FF0FF32 		mov	r2, #-1
+ 995 002e C260     		str	r2, [r0, #12]
+ 172:Core/Src/CommunicationProtocol/tim.c ****   htim5.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+ 996              		.loc 1 172 3 is_stmt 1 view .LVU299
+ 172:Core/Src/CommunicationProtocol/tim.c ****   htim5.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+ 997              		.loc 1 172 28 is_stmt 0 view .LVU300
+ARM GAS  /var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s 			page 28
+
+
+ 998 0030 0361     		str	r3, [r0, #16]
+ 173:Core/Src/CommunicationProtocol/tim.c ****   if (HAL_TIM_Base_Init(&htim5) != HAL_OK)
+ 999              		.loc 1 173 3 is_stmt 1 view .LVU301
+ 173:Core/Src/CommunicationProtocol/tim.c ****   if (HAL_TIM_Base_Init(&htim5) != HAL_OK)
+ 1000              		.loc 1 173 32 is_stmt 0 view .LVU302
+ 1001 0032 8361     		str	r3, [r0, #24]
+ 174:Core/Src/CommunicationProtocol/tim.c ****   {
+ 1002              		.loc 1 174 3 is_stmt 1 view .LVU303
+ 174:Core/Src/CommunicationProtocol/tim.c ****   {
+ 1003              		.loc 1 174 7 is_stmt 0 view .LVU304
+ 1004 0034 FFF7FEFF 		bl	HAL_TIM_Base_Init
+ 1005              	.LVL51:
+ 174:Core/Src/CommunicationProtocol/tim.c ****   {
+ 1006              		.loc 1 174 6 view .LVU305
+ 1007 0038 40BB     		cbnz	r0, .L73
+ 1008              	.L67:
+ 178:Core/Src/CommunicationProtocol/tim.c ****   if (HAL_TIM_ConfigClockSource(&htim5, &sClockSourceConfig) != HAL_OK)
+ 1009              		.loc 1 178 3 is_stmt 1 view .LVU306
+ 178:Core/Src/CommunicationProtocol/tim.c ****   if (HAL_TIM_ConfigClockSource(&htim5, &sClockSourceConfig) != HAL_OK)
+ 1010              		.loc 1 178 34 is_stmt 0 view .LVU307
+ 1011 003a 4FF48053 		mov	r3, #4096
+ 1012 003e 0A93     		str	r3, [sp, #40]
+ 179:Core/Src/CommunicationProtocol/tim.c ****   {
+ 1013              		.loc 1 179 3 is_stmt 1 view .LVU308
+ 179:Core/Src/CommunicationProtocol/tim.c ****   {
+ 1014              		.loc 1 179 7 is_stmt 0 view .LVU309
+ 1015 0040 0AA9     		add	r1, sp, #40
+ 1016 0042 1A48     		ldr	r0, .L78
+ 1017 0044 FFF7FEFF 		bl	HAL_TIM_ConfigClockSource
+ 1018              	.LVL52:
+ 179:Core/Src/CommunicationProtocol/tim.c ****   {
+ 1019              		.loc 1 179 6 view .LVU310
+ 1020 0048 18BB     		cbnz	r0, .L74
+ 1021              	.L68:
+ 183:Core/Src/CommunicationProtocol/tim.c ****   {
+ 1022              		.loc 1 183 3 is_stmt 1 view .LVU311
+ 183:Core/Src/CommunicationProtocol/tim.c ****   {
+ 1023              		.loc 1 183 7 is_stmt 0 view .LVU312
+ 1024 004a 1848     		ldr	r0, .L78
+ 1025 004c FFF7FEFF 		bl	HAL_TIM_PWM_Init
+ 1026              	.LVL53:
+ 183:Core/Src/CommunicationProtocol/tim.c ****   {
+ 1027              		.loc 1 183 6 view .LVU313
+ 1028 0050 10BB     		cbnz	r0, .L75
+ 1029              	.L69:
+ 187:Core/Src/CommunicationProtocol/tim.c ****   sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+ 1030              		.loc 1 187 3 is_stmt 1 view .LVU314
+ 187:Core/Src/CommunicationProtocol/tim.c ****   sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+ 1031              		.loc 1 187 37 is_stmt 0 view .LVU315
+ 1032 0052 0023     		movs	r3, #0
+ 1033 0054 0893     		str	r3, [sp, #32]
+ 188:Core/Src/CommunicationProtocol/tim.c ****   if (HAL_TIMEx_MasterConfigSynchronization(&htim5, &sMasterConfig) != HAL_OK)
+ 1034              		.loc 1 188 3 is_stmt 1 view .LVU316
+ 188:Core/Src/CommunicationProtocol/tim.c ****   if (HAL_TIMEx_MasterConfigSynchronization(&htim5, &sMasterConfig) != HAL_OK)
+ 1035              		.loc 1 188 33 is_stmt 0 view .LVU317
+ 1036 0056 0993     		str	r3, [sp, #36]
+ 189:Core/Src/CommunicationProtocol/tim.c ****   {
+ARM GAS  /var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s 			page 29
+
+
+ 1037              		.loc 1 189 3 is_stmt 1 view .LVU318
+ 189:Core/Src/CommunicationProtocol/tim.c ****   {
+ 1038              		.loc 1 189 7 is_stmt 0 view .LVU319
+ 1039 0058 08A9     		add	r1, sp, #32
+ 1040 005a 1448     		ldr	r0, .L78
+ 1041 005c FFF7FEFF 		bl	HAL_TIMEx_MasterConfigSynchronization
+ 1042              	.LVL54:
+ 189:Core/Src/CommunicationProtocol/tim.c ****   {
+ 1043              		.loc 1 189 6 view .LVU320
+ 1044 0060 E8B9     		cbnz	r0, .L76
+ 1045              	.L70:
+ 193:Core/Src/CommunicationProtocol/tim.c ****   sConfigOC.Pulse = 300000000;
+ 1046              		.loc 1 193 3 is_stmt 1 view .LVU321
+ 193:Core/Src/CommunicationProtocol/tim.c ****   sConfigOC.Pulse = 300000000;
+ 1047              		.loc 1 193 20 is_stmt 0 view .LVU322
+ 1048 0062 6023     		movs	r3, #96
+ 1049 0064 0193     		str	r3, [sp, #4]
+ 194:Core/Src/CommunicationProtocol/tim.c ****   sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
+ 1050              		.loc 1 194 3 is_stmt 1 view .LVU323
+ 194:Core/Src/CommunicationProtocol/tim.c ****   sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
+ 1051              		.loc 1 194 19 is_stmt 0 view .LVU324
+ 1052 0066 134B     		ldr	r3, .L78+8
+ 1053 0068 0293     		str	r3, [sp, #8]
+ 195:Core/Src/CommunicationProtocol/tim.c ****   sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
+ 1054              		.loc 1 195 3 is_stmt 1 view .LVU325
+ 195:Core/Src/CommunicationProtocol/tim.c ****   sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
+ 1055              		.loc 1 195 24 is_stmt 0 view .LVU326
+ 1056 006a 0022     		movs	r2, #0
+ 1057 006c 0392     		str	r2, [sp, #12]
+ 196:Core/Src/CommunicationProtocol/tim.c ****   if (HAL_TIM_PWM_ConfigChannel(&htim5, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
+ 1058              		.loc 1 196 3 is_stmt 1 view .LVU327
+ 196:Core/Src/CommunicationProtocol/tim.c ****   if (HAL_TIM_PWM_ConfigChannel(&htim5, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
+ 1059              		.loc 1 196 24 is_stmt 0 view .LVU328
+ 1060 006e 0592     		str	r2, [sp, #20]
+ 197:Core/Src/CommunicationProtocol/tim.c ****   {
+ 1061              		.loc 1 197 3 is_stmt 1 view .LVU329
+ 197:Core/Src/CommunicationProtocol/tim.c ****   {
+ 1062              		.loc 1 197 7 is_stmt 0 view .LVU330
+ 1063 0070 01A9     		add	r1, sp, #4
+ 1064 0072 0E48     		ldr	r0, .L78
+ 1065 0074 FFF7FEFF 		bl	HAL_TIM_PWM_ConfigChannel
+ 1066              	.LVL55:
+ 197:Core/Src/CommunicationProtocol/tim.c ****   {
+ 1067              		.loc 1 197 6 view .LVU331
+ 1068 0078 A0B9     		cbnz	r0, .L77
+ 1069              	.L71:
+ 201:Core/Src/CommunicationProtocol/tim.c ****   HAL_TIM_MspPostInit(&htim5);
+ 1070              		.loc 1 201 3 is_stmt 1 view .LVU332
+ 1071 007a 0C4C     		ldr	r4, .L78
+ 1072 007c 2046     		mov	r0, r4
+ 1073 007e FFF7FEFF 		bl	HAL_TIM_Base_MspInit
+ 1074              	.LVL56:
+ 202:Core/Src/CommunicationProtocol/tim.c **** }
+ 1075              		.loc 1 202 3 view .LVU333
+ 1076 0082 2046     		mov	r0, r4
+ 1077 0084 FFF7FEFF 		bl	HAL_TIM_MspPostInit
+ 1078              	.LVL57:
+ARM GAS  /var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s 			page 30
+
+
+ 203:Core/Src/CommunicationProtocol/tim.c **** 
+ 1079              		.loc 1 203 1 is_stmt 0 view .LVU334
+ 1080 0088 0EB0     		add	sp, sp, #56
+ 1081              	.LCFI21:
+ 1082              		.cfi_remember_state
+ 1083              		.cfi_def_cfa_offset 8
+ 1084              		@ sp needed
+ 1085 008a 10BD     		pop	{r4, pc}
+ 1086              	.L73:
+ 1087              	.LCFI22:
+ 1088              		.cfi_restore_state
+ 176:Core/Src/CommunicationProtocol/tim.c ****   }
+ 1089              		.loc 1 176 5 is_stmt 1 view .LVU335
+ 1090 008c FFF7FEFF 		bl	Error_Handler
+ 1091              	.LVL58:
+ 1092 0090 D3E7     		b	.L67
+ 1093              	.L74:
+ 181:Core/Src/CommunicationProtocol/tim.c ****   }
+ 1094              		.loc 1 181 5 view .LVU336
+ 1095 0092 FFF7FEFF 		bl	Error_Handler
+ 1096              	.LVL59:
+ 1097 0096 D8E7     		b	.L68
+ 1098              	.L75:
+ 185:Core/Src/CommunicationProtocol/tim.c ****   }
+ 1099              		.loc 1 185 5 view .LVU337
+ 1100 0098 FFF7FEFF 		bl	Error_Handler
+ 1101              	.LVL60:
+ 1102 009c D9E7     		b	.L69
+ 1103              	.L76:
+ 191:Core/Src/CommunicationProtocol/tim.c ****   }
+ 1104              		.loc 1 191 5 view .LVU338
+ 1105 009e FFF7FEFF 		bl	Error_Handler
+ 1106              	.LVL61:
+ 1107 00a2 DEE7     		b	.L70
+ 1108              	.L77:
+ 199:Core/Src/CommunicationProtocol/tim.c ****   }
+ 1109              		.loc 1 199 5 view .LVU339
+ 1110 00a4 FFF7FEFF 		bl	Error_Handler
+ 1111              	.LVL62:
+ 1112 00a8 E7E7     		b	.L71
+ 1113              	.L79:
+ 1114 00aa 00BF     		.align	2
+ 1115              	.L78:
+ 1116 00ac 00000000 		.word	.LANCHOR3
+ 1117 00b0 000C0040 		.word	1073744896
+ 1118 00b4 00A3E111 		.word	300000000
+ 1119              		.cfi_endproc
+ 1120              	.LFE137:
+ 1122              		.section	.text.HAL_TIM_Base_MspDeInit,"ax",%progbits
+ 1123              		.align	1
+ 1124              		.global	HAL_TIM_Base_MspDeInit
+ 1125              		.syntax unified
+ 1126              		.thumb
+ 1127              		.thumb_func
+ 1129              	HAL_TIM_Base_MspDeInit:
+ 1130              	.LVL63:
+ 1131              	.LFB140:
+ARM GAS  /var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s 			page 31
+
+
+ 287:Core/Src/CommunicationProtocol/tim.c **** 
+ 288:Core/Src/CommunicationProtocol/tim.c **** void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* tim_baseHandle)
+ 289:Core/Src/CommunicationProtocol/tim.c **** {
+ 1132              		.loc 1 289 1 view -0
+ 1133              		.cfi_startproc
+ 1134              		@ args = 0, pretend = 0, frame = 0
+ 1135              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1136              		@ link register save eliminated.
+ 290:Core/Src/CommunicationProtocol/tim.c **** 
+ 291:Core/Src/CommunicationProtocol/tim.c ****   if(tim_baseHandle->Instance==TIM2)
+ 1137              		.loc 1 291 3 view .LVU341
+ 1138              		.loc 1 291 20 is_stmt 0 view .LVU342
+ 1139 0000 0368     		ldr	r3, [r0]
+ 1140              		.loc 1 291 5 view .LVU343
+ 1141 0002 B3F1804F 		cmp	r3, #1073741824
+ 1142 0006 09D0     		beq	.L85
+ 292:Core/Src/CommunicationProtocol/tim.c ****   {
+ 293:Core/Src/CommunicationProtocol/tim.c ****     /* Peripheral clock disable */
+ 294:Core/Src/CommunicationProtocol/tim.c ****     __HAL_RCC_TIM2_CLK_DISABLE();
+ 295:Core/Src/CommunicationProtocol/tim.c ****   }
+ 296:Core/Src/CommunicationProtocol/tim.c ****   else if(tim_baseHandle->Instance==TIM3)
+ 1143              		.loc 1 296 8 is_stmt 1 view .LVU344
+ 1144              		.loc 1 296 10 is_stmt 0 view .LVU345
+ 1145 0008 124A     		ldr	r2, .L89
+ 1146 000a 9342     		cmp	r3, r2
+ 1147 000c 0CD0     		beq	.L86
+ 297:Core/Src/CommunicationProtocol/tim.c ****   {
+ 298:Core/Src/CommunicationProtocol/tim.c ****     /* Peripheral clock disable */
+ 299:Core/Src/CommunicationProtocol/tim.c ****     __HAL_RCC_TIM3_CLK_DISABLE();
+ 300:Core/Src/CommunicationProtocol/tim.c ****   }
+ 301:Core/Src/CommunicationProtocol/tim.c ****   else if(tim_baseHandle->Instance==TIM4)
+ 1148              		.loc 1 301 8 is_stmt 1 view .LVU346
+ 1149              		.loc 1 301 10 is_stmt 0 view .LVU347
+ 1150 000e 124A     		ldr	r2, .L89+4
+ 1151 0010 9342     		cmp	r3, r2
+ 1152 0012 10D0     		beq	.L87
+ 302:Core/Src/CommunicationProtocol/tim.c ****   {
+ 303:Core/Src/CommunicationProtocol/tim.c ****     /* Peripheral clock disable */
+ 304:Core/Src/CommunicationProtocol/tim.c ****     __HAL_RCC_TIM4_CLK_DISABLE();
+ 305:Core/Src/CommunicationProtocol/tim.c ****   }
+ 306:Core/Src/CommunicationProtocol/tim.c ****   else if(tim_baseHandle->Instance==TIM5)
+ 1153              		.loc 1 306 8 is_stmt 1 view .LVU348
+ 1154              		.loc 1 306 10 is_stmt 0 view .LVU349
+ 1155 0014 114A     		ldr	r2, .L89+8
+ 1156 0016 9342     		cmp	r3, r2
+ 1157 0018 14D0     		beq	.L88
+ 1158              	.L80:
+ 307:Core/Src/CommunicationProtocol/tim.c ****   {
+ 308:Core/Src/CommunicationProtocol/tim.c ****     /* Peripheral clock disable */
+ 309:Core/Src/CommunicationProtocol/tim.c ****     __HAL_RCC_TIM5_CLK_DISABLE();
+ 310:Core/Src/CommunicationProtocol/tim.c ****   }
+ 311:Core/Src/CommunicationProtocol/tim.c **** }
+ 1159              		.loc 1 311 1 view .LVU350
+ 1160 001a 7047     		bx	lr
+ 1161              	.L85:
+ 294:Core/Src/CommunicationProtocol/tim.c ****   }
+ 1162              		.loc 1 294 5 is_stmt 1 view .LVU351
+ARM GAS  /var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s 			page 32
+
+
+ 1163 001c 104A     		ldr	r2, .L89+12
+ 1164 001e 136C     		ldr	r3, [r2, #64]
+ 1165 0020 23F00103 		bic	r3, r3, #1
+ 1166 0024 1364     		str	r3, [r2, #64]
+ 1167 0026 7047     		bx	lr
+ 1168              	.L86:
+ 299:Core/Src/CommunicationProtocol/tim.c ****   }
+ 1169              		.loc 1 299 5 view .LVU352
+ 1170 0028 02F50D32 		add	r2, r2, #144384
+ 1171 002c 136C     		ldr	r3, [r2, #64]
+ 1172 002e 23F00203 		bic	r3, r3, #2
+ 1173 0032 1364     		str	r3, [r2, #64]
+ 1174 0034 7047     		bx	lr
+ 1175              	.L87:
+ 304:Core/Src/CommunicationProtocol/tim.c ****   }
+ 1176              		.loc 1 304 5 view .LVU353
+ 1177 0036 02F50C32 		add	r2, r2, #143360
+ 1178 003a 136C     		ldr	r3, [r2, #64]
+ 1179 003c 23F00403 		bic	r3, r3, #4
+ 1180 0040 1364     		str	r3, [r2, #64]
+ 1181 0042 7047     		bx	lr
+ 1182              	.L88:
+ 309:Core/Src/CommunicationProtocol/tim.c ****   }
+ 1183              		.loc 1 309 5 view .LVU354
+ 1184 0044 02F50B32 		add	r2, r2, #142336
+ 1185 0048 136C     		ldr	r3, [r2, #64]
+ 1186 004a 23F00803 		bic	r3, r3, #8
+ 1187 004e 1364     		str	r3, [r2, #64]
+ 1188              		.loc 1 311 1 is_stmt 0 view .LVU355
+ 1189 0050 E3E7     		b	.L80
+ 1190              	.L90:
+ 1191 0052 00BF     		.align	2
+ 1192              	.L89:
+ 1193 0054 00040040 		.word	1073742848
+ 1194 0058 00080040 		.word	1073743872
+ 1195 005c 000C0040 		.word	1073744896
+ 1196 0060 00380240 		.word	1073887232
+ 1197              		.cfi_endproc
+ 1198              	.LFE140:
+ 1200              		.global	htim5
+ 1201              		.global	htim4
+ 1202              		.global	htim3
+ 1203              		.global	htim2
+ 1204              		.section	.bss.htim2,"aw",%nobits
+ 1205              		.align	2
+ 1206              		.set	.LANCHOR0,. + 0
+ 1209              	htim2:
+ 1210 0000 00000000 		.space	72
+ 1210      00000000 
+ 1210      00000000 
+ 1210      00000000 
+ 1210      00000000 
+ 1211              		.section	.bss.htim3,"aw",%nobits
+ 1212              		.align	2
+ 1213              		.set	.LANCHOR1,. + 0
+ 1216              	htim3:
+ 1217 0000 00000000 		.space	72
+ARM GAS  /var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s 			page 33
+
+
+ 1217      00000000 
+ 1217      00000000 
+ 1217      00000000 
+ 1217      00000000 
+ 1218              		.section	.bss.htim4,"aw",%nobits
+ 1219              		.align	2
+ 1220              		.set	.LANCHOR2,. + 0
+ 1223              	htim4:
+ 1224 0000 00000000 		.space	72
+ 1224      00000000 
+ 1224      00000000 
+ 1224      00000000 
+ 1224      00000000 
+ 1225              		.section	.bss.htim5,"aw",%nobits
+ 1226              		.align	2
+ 1227              		.set	.LANCHOR3,. + 0
+ 1230              	htim5:
+ 1231 0000 00000000 		.space	72
+ 1231      00000000 
+ 1231      00000000 
+ 1231      00000000 
+ 1231      00000000 
+ 1232              		.text
+ 1233              	.Letext0:
+ 1234              		.file 2 "/usr/local/Cellar/arm-none-eabi-gcc/10.3-2021.10/gcc/arm-none-eabi/include/machine/_defau
+ 1235              		.file 3 "/usr/local/Cellar/arm-none-eabi-gcc/10.3-2021.10/gcc/arm-none-eabi/include/sys/_stdint.h"
+ 1236              		.file 4 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f401xe.h"
+ 1237              		.file 5 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
+ 1238              		.file 6 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h"
+ 1239              		.file 7 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
+ 1240              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h"
+ 1241              		.file 9 "Core/Inc/CommunicationProtocol/tim.h"
+ 1242              		.file 10 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h"
+ 1243              		.file 11 "Core/Inc/main.h"
+ARM GAS  /var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s 			page 34
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 tim.c
+/var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s:20     .text.HAL_TIM_Base_MspInit:0000000000000000 $t
+/var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s:26     .text.HAL_TIM_Base_MspInit:0000000000000000 HAL_TIM_Base_MspInit
+/var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s:152    .text.HAL_TIM_Base_MspInit:0000000000000088 $d
+/var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s:160    .text.HAL_TIM_MspPostInit:0000000000000000 $t
+/var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s:166    .text.HAL_TIM_MspPostInit:0000000000000000 HAL_TIM_MspPostInit
+/var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s:390    .text.HAL_TIM_MspPostInit:00000000000000e4 $d
+/var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s:400    .text.MX_TIM2_Init:0000000000000000 $t
+/var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s:406    .text.MX_TIM2_Init:0000000000000000 MX_TIM2_Init
+/var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s:575    .text.MX_TIM2_Init:00000000000000ac $d
+/var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s:581    .text.MX_TIM3_Init:0000000000000000 $t
+/var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s:587    .text.MX_TIM3_Init:0000000000000000 MX_TIM3_Init
+/var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s:755    .text.MX_TIM3_Init:00000000000000a8 $d
+/var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s:761    .text.MX_TIM4_Init:0000000000000000 $t
+/var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s:767    .text.MX_TIM4_Init:0000000000000000 MX_TIM4_Init
+/var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s:935    .text.MX_TIM4_Init:00000000000000a8 $d
+/var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s:941    .text.MX_TIM5_Init:0000000000000000 $t
+/var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s:947    .text.MX_TIM5_Init:0000000000000000 MX_TIM5_Init
+/var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s:1116   .text.MX_TIM5_Init:00000000000000ac $d
+/var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s:1123   .text.HAL_TIM_Base_MspDeInit:0000000000000000 $t
+/var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s:1129   .text.HAL_TIM_Base_MspDeInit:0000000000000000 HAL_TIM_Base_MspDeInit
+/var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s:1193   .text.HAL_TIM_Base_MspDeInit:0000000000000054 $d
+/var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s:1230   .bss.htim5:0000000000000000 htim5
+/var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s:1223   .bss.htim4:0000000000000000 htim4
+/var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s:1216   .bss.htim3:0000000000000000 htim3
+/var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s:1209   .bss.htim2:0000000000000000 htim2
+/var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s:1205   .bss.htim2:0000000000000000 $d
+/var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s:1212   .bss.htim3:0000000000000000 $d
+/var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s:1219   .bss.htim4:0000000000000000 $d
+/var/folders/mj/g8q9qvjj1qg4kbgnh_bz76140000gn/T//ccSQEnXq.s:1226   .bss.htim5:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+HAL_GPIO_Init
+HAL_TIM_Base_Init
+HAL_TIM_ConfigClockSource
+HAL_TIM_PWM_Init
+HAL_TIMEx_MasterConfigSynchronization
+HAL_TIM_PWM_ConfigChannel
+Error_Handler

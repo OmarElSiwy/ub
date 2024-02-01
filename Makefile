@@ -13,7 +13,7 @@
 ######################################
 # target
 ######################################
-TARGET = Path Remembering Robot
+TARGET = PathRememberingRobot
 
 
 ######################################
@@ -42,6 +42,8 @@ Core/Src/CommunicationProtocol/i2c.c \
 Core/Src/CommunicationProtocol/spi.c \
 Core/Src/CommunicationProtocol/tim.c \
 Core/Src/CommunicationProtocol/usart.c \
+Core/Src/Components/Motor.c \
+Core/Src/Components/MPU6050.c \
 Core/Src/freertos.c \
 Core/Src/stm32f4xx_it.c \
 Core/Src/stm32f4xx_hal_msp.c \
@@ -79,7 +81,7 @@ Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.c
 
 # ASM sources
 ASM_SOURCES =  \
-startup_stm32f401xe.s
+Tools/startup_stm32f401xe.s
 
 # ASM sources
 ASMM_SOURCES = 
@@ -225,4 +227,4 @@ connectflash: ${BUILD_DIR}/${TARGET}.bin
 	st-flash --reset write $< 0x8000000
 
 cleanflash: ${BUILD_DIR}/${TARGET}.bin
-	st-flash -connect-under-reset --reset write $< 0x8000000
+	st-flash --connect-under-reset write $< 0x8000000
